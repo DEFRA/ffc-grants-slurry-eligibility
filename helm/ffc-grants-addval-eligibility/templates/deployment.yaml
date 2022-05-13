@@ -1,0 +1,8 @@
+{{- include "ffc-helm-library.deployment" (list . "ffc-grants-addval-eligibility.deployment") -}}
+{{- define "ffc-grants-addval-eligibility.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "ffc-helm-library.container" (list . "ffc-grants-addval-eligibility.container") }}
+{{- end -}}

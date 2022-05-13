@@ -1,0 +1,3 @@
+{{- include "ffc-helm-library.azure-identity" (list . "ffc-grants-addval-eligibility.azure-identity") -}}
+{{- define "ffc-grants-addval-eligibility.azure-identity" -}}
+{{- end -}}
