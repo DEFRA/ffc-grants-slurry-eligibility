@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  ffc-grants-addval-eligibility:
+  ffc-grants-slurry-eligibility:
     build:
       context: .
       target: production
-    image: ffc-grants-addval-eligibility
-    container_name: ffc-grants-addval-eligibility
+    image: ffc-grants-slurry-eligibility
+    container_name: ffc-grants-slurry-eligibility
     environment:
       SERVICE_BUS_HOST: ${SERVICE_BUS_HOST:-notset}
       SERVICE_BUS_PASSWORD: ${SERVICE_BUS_PASSWORD:-notset}
@@ -19,9 +19,9 @@ services:
       DESIRABILITY_SUBMITTED_TOPIC_ADDRESS: ${DESIRABILITY_SUBMITTED_TOPIC_ADDRESS:-notset}
       REDIS_HOSTNAME: redis
       REDIS_PORT: 6379
-      REDIS_PARTITION: ffc-grants-addval-eligibility
+      REDIS_PARTITION: ffc-grants-slurry-eligibility
       REDIS_PASSWORD: ""
-      APPINSIGHTS_CLOUDROLE: ffc-grants-addval-eligibility
+      APPINSIGHTS_CLOUDROLE: ffc-grants-slurry-eligibility
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY:-notset}
       WORKSHEET_HIDE_EMPTY_ROWS: ${WORKSHEET_HIDE_EMPTY_ROWS:-false}
       WORKSHEET_PROTECT_ENABLED: ${WORKSHEET_PROTECT_ENABLED:-false}

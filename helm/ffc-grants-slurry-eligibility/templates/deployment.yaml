@@ -1,0 +1,8 @@
+{{- include "ffc-helm-library.deployment" (list . "ffc-grants-slurry-eligibility.deployment") -}}
+{{- define "ffc-grants-slurry-eligibility.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "ffc-helm-library.container" (list . "ffc-grants-slurry-eligibility.container") }}
+{{- end -}}

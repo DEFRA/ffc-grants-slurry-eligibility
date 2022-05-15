@@ -1,8 +1,8 @@
 environment: development
-name: ffc-grants-addval-eligibility
+name: ffc-grants-slurry-eligibility
 namespace: ffc-grants
 workstream: ffc-grants
-image: ffc-grants-addval-eligibility
+image: ffc-grants-slurry-eligibility
 
 labels: {}
 
@@ -14,10 +14,10 @@ azureIdentity:
   resourceID: not-a-real-resourceID
 
 containerConfigMap:
-  name: ffc-grants-addval-eligibility-config-map
+  name: ffc-grants-slurry-eligibility-config-map
 
 containerSecret:
-  name: ffc-grants-addval-eligibility-container-secret
+  name: ffc-grants-slurry-eligibility-container-secret
   type: Opaque
 
 deployment:
@@ -50,7 +50,7 @@ container:
   redisHostname: redis
   redisPassword: redis
   redisPort: 6379
-  redisPartition: ffc-grants-addval-eligibility
+  redisPartition: ffc-grants-slurry-eligibility
   notifyEmailTemplate: dummy-template
   worksheetProtectPassword: dummy-pwd
   worksheetProtectEnabled: false

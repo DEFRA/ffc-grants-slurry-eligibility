@@ -9,6 +9,6 @@ describe('Config Messaging', () => {
     expect(messageConfig.desirabilitySubmittedTopic).toBeDefined()
     expect(messageConfig.desirabilitySubmittedMsgType).toBeDefined()
     expect(messageConfig.calculateScoreMsgType).toBeDefined()
-    expect(messageConfig.msgSrc).toBe('ffc-grants-addval-eligibility')
+    expect(messageConfig.msgSrc).toBe('ffc-grants-slurry-eligibility')
   })
 })

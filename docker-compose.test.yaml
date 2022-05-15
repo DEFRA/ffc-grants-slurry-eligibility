@@ -4,11 +4,11 @@ version: '3.8'
 # that test output is saved to the host
 
 services:
-  ffc-grants-addval-eligibility:
+  ffc-grants-slurry-eligibility:
     build:
       target: development
-    image: ffc-grants-addval-eligibility-development
-    container_name: ffc-grants-addval-eligibility-test
+    image: ffc-grants-slurry-eligibility-development
+    container_name: ffc-grants-slurry-eligibility-test
     command: npm run test
     environment:
       NODE_ENV: test

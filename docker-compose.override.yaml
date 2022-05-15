@@ -4,13 +4,13 @@ version: '3.8'
 # to provide dependencies and expose ports for local testing
 
 services:
-  ffc-grants-addval-eligibility:
+  ffc-grants-slurry-eligibility:
     build:
       target: development
     depends_on:
       - redis
-    image: ffc-grants-addval-eligibility-development
-    container_name: ffc-grants-addval-eligibility-development
+    image: ffc-grants-slurry-eligibility-development
+    container_name: ffc-grants-slurry-eligibility-development
     ports:
       - "3021:3000"
       - "9237:9229"
