@@ -1,6 +1,6 @@
-# FFC Grants adding value Eligibility
+# FFC Grants Slurry Eligibility
 
-FFC Grants adding value eligibility and desirability microservice - this service interconnect scoring, notification, file creation services.
+FFC Grants slurry eligibility and desirability microservice - this service interconnect scoring, notification, file creation services.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ overridden by build and release pipelines.
 
 | Name                                      | Description                               | Required  | Default            | Valid                       | Notes                                                                             |
 | ----                                      | -----------                               | :-------: | -------            | -----                       | -----                                                                             |
-| APPINSIGHTS_CLOUDROLE                     | Role used for filtering metrics           | no        |                    |                             | Set to `ffc-grants-addval-eligibility` in docker compose files                               |
+| APPINSIGHTS_CLOUDROLE                     | Role used for filtering metrics           | no        |                    |                             | Set to `ffc-grants-slurry-eligibility` in docker compose files                               |
 | APPINSIGHTS_INSTRUMENTATIONKEY            | Key for application insight               | no        |                    |                             | App insights only enabled if key is present. Note: Silently fails for invalid key |
 | NODE_ENV                                  | Node environment                          | no        | development        | development,test,production |                                                                                   |
 | PORT                                      | Port number                               | no        | 3000               |                             |                                                                                   |
@@ -70,7 +70,7 @@ Running the integration tests locally requires access to ASB, this can be
 achieved by setting the following environment variables:
 `SERVICE_BUS_HOST`, `SERVICE_BUS_USER`, `SERVICE_BUS_PASSWORD`.
 `PROJECT_DETAILS_QUEUE_ADDRESS`, `CONTACT_DETAILS_QUEUE_ADDRESS`, `CALCULATE_SCORE_QUEUE_ADDRESS` must be set to a valid, developer specific queue that is
-available on ASB e.g. `ffc-grants-addval-eligibility-<initials>` where `<initials>` are the
+available on ASB e.g. `ffc-grants-slurry-eligibility-<initials>` where `<initials>` are the
 initials of the developer.
 
 ## Test structure
@@ -148,7 +148,7 @@ Alternatively, a local port may be forwarded to the pod:
 
 ```bash
 # Forward local port to the Kubernetes deployment
-kubectl port-forward --namespace=ffc-grants deployment/ffc-grants-addval-eligibility 3000:3000
+kubectl port-forward --namespace=ffc-grants deployment/ffc-grants-slurry-eligibility 3000:3000
 ```
 
 Once the port is forwarded or an ingress controller is installed, the service

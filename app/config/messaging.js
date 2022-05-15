@@ -35,7 +35,7 @@ module.exports = {
     type: 'topic',
     ...sharedConfig
   },
-  desirabilitySubmittedMsgType: `${msgTypePrefix}.addval.desirability.notification`,
-  calculateScoreMsgType: `${msgTypePrefix}.addval.desirability.calculate`,
-  msgSrc: 'ffc-grants-addval-eligibility'
+  desirabilitySubmittedMsgType: `${msgTypePrefix}.slurry.desirability.notification`,
+  calculateScoreMsgType: `${msgTypePrefix}.slurry.desirability.calculate`,
+  msgSrc: 'ffc-grants-slurry-eligibility'
 }
