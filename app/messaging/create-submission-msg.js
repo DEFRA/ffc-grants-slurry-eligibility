@@ -66,6 +66,7 @@ function getProjectItems (projectItems, storage) {
   return projectItems.join('|')
 }
 function getSpreadsheetDetails (submission, desirabilityScore) {
+  console.log('INSIDE SPREADSHEET FORMAT', submission, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
   const schemeName = 'Adding Value'
