@@ -35,6 +35,7 @@ module.exports = {
     await projectDetailsReceiver.subscribe()
   },
   startContactDetailsReceiver: async function (contactDetailsReceived) {
+    console.log('MADE IT TO LISTENER', submissionDetails, 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     const updateAction = msg => contactDetailsReceived(msg, contactDetailsReceiver)
     contactDetailsReceiver = new MessageReceiver(msgCfg.contactDetailsQueue, updateAction)
     await contactDetailsReceiver.subscribe()
