@@ -69,7 +69,7 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
   console.log('INSIDE SPREADSHEET FORMAT', submission, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
-  const schemeName = 'Adding Value'
+  const schemeName = 'Slurry Infrastructure'
   const subScheme = `FTF-${schemeName}`
 
   return {
@@ -80,7 +80,7 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
       submission.confirmationId.trim(),
       today
     ),
-    uploadLocation: `Farming Investment Fund/Farming Transformation Fund/${spreadsheetConfig.uploadEnvironment}/Adding Value/`,
+    uploadLocation: `Farming Investment Fund/Farming Transformation Fund/${spreadsheetConfig.uploadEnvironment}/Slurry Infrastructure/`,
     worksheets: [
       {
         title: 'DORA DATA',
@@ -92,8 +92,8 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(2, 'FA or OA', 'Outline Application'),
           generateRow(40, 'Scheme', 'Farming Transformation Fund'),
           generateRow(39, 'Sub scheme', subScheme),
-          generateRow(43, 'Theme', 'Slurry infrastructure'),
-          generateRow(90, 'Project type', 'Slurry infrastructure'),
+          generateRow(43, 'Theme', 'Slurry Infrastructure'),
+          generateRow(90, 'Project type', 'Slurry Infrastructure'),
           generateRow(41, 'Owner', 'RD'),
           generateRow(341, 'Grant Launch Date', ''),
           generateRow(23, 'Status of applicant', submission.legalStatus),
