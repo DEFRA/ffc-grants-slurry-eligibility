@@ -56,7 +56,7 @@ function generateExcelFilename (scheme, projectName, businessName, referenceNumb
   return `${scheme}_${projectName}_${businessName}_${referenceNumber}_${dateTime}.xlsx`
 }
 function getBusinessTypeC53 (businessType) {
-  return (businessType.includes('processing')) ? 'processor' : 'producer'
+  return 'value' ? 'processor' : 'producer'
 }
 
 function getProjectItems (projectItems, storage) {
@@ -92,33 +92,23 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(2, 'FA or OA', 'Outline Application'),
           generateRow(40, 'Scheme', 'Farming Transformation Fund'),
           generateRow(39, 'Sub scheme', subScheme),
-          generateRow(43, 'Theme', 'Adding Value'),
-          generateRow(90, 'Project type', 'Adding Value'),
+          generateRow(43, 'Theme', 'Slurry infrastructure'),
+          generateRow(90, 'Project type', 'Slurry infrastructure'),
           generateRow(41, 'Owner', 'RD'),
           generateRow(341, 'Grant Launch Date', ''),
           generateRow(23, 'Status of applicant', submission.legalStatus),
-          generateRow(44, 'Adding Value Project Items', submission.projectItems ? getProjectItems([submission.projectItems].flat(), submission.storage) : ''),
+          generateRow(44, 'Project Items', submission.otherItems),
           generateRow(45, 'Location of project (postcode)', submission.farmerDetails.projectPostcode),
           generateRow(376, 'Project Started', submission.projectStart),
           generateRow(342, 'Land owned by Farm', submission.tenancy),
           generateRow(343, 'Tenancy for next 5 years', submission.tenancyLength ?? ''),
-          generateRow(53, 'Business type', getBusinessTypeC53(submission.applicantBusiness)),
-          generateRow(55, 'Total project expenditure', String(submission.projectCost).replace(/,/g, '')),
+          generateRow(55, 'Total project expenditure', String(submission.itemsTotalValue).replace(/,/g, '')),
           generateRow(57, 'Grant rate', '40'),
-          generateRow(56, 'Grant amount requested', submission.calculatedGrant),
-          generateRow(345, 'Remaining Cost to Farmer', submission.remainingCost),
+          generateRow(56, 'Grant amount requested', submission.itemsTotalValue),
+          generateRow(345, 'Remaining Cost to Farmer', submission.remainingCosts),
           generateRow(346, 'Planning Permission Status', submission.planningPermission),
-          generateRow(386, 'Products To Be Processed', submission.productsProcessed ?? ''),
-          generateRow(387, 'How add value to products', submission.howAddingValue ?? ''),
-          generateRow(388, 'AV Project Impact', submission.projectImpact ? [submission.projectImpact].flat().join('|') : ''),
-          generateRow(389, 'AV Target Customers', [submission.futureCustomers].flat().join('|') ?? ''),
-          generateRow(390, 'AV Farmer Collaborate', submission.collaboration ?? ''),
-          generateRow(393, 'AV Improve Environment', [submission.environmentalImpact].flat().join('|') ?? ''),
-          generateRow(394, 'AV Business Type', submission.applicantBusiness ?? ' '),
           generateRow(49, 'Site of Special Scientific Interest (SSSI)', submission.sSSI ?? ''),
-          generateRow(365, 'OA score', desirabilityScore.desirability.overallRating.band),
           generateRow(366, 'Date of OA decision', ''),
-          generateRow(395, 'Storage Facilities', submission.storage.split(',')[0]),
           generateRow(42, 'Project name', submission.businessDetails.projectName),
           generateRow(4, 'Single business identifier (SBI)', submission.businessDetails.sbi || '000000000'), // sbi is '' if not set so use || instead of ??
           generateRow(7, 'Business name', submission.businessDetails.businessName),
@@ -146,7 +136,7 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(54, 'Electronic OA received date ', todayStr),
           generateRow(370, 'Status', 'Pending RPA review'),
           generateRow(85, 'Full Application Submission Date', (new Date(today.setMonth(today.getMonth() + 6))).toLocaleDateString('en-GB')),
-          generateRow(375, 'OA percent', String(desirabilityScore.desirability.overallRating.score)),
+          generateRow(375, 'OA percent', 'placeholder 1'),
           ...addAgentDetails(submission.agentsDetails)
         ]
       }
@@ -158,16 +148,6 @@ function getCurrencyFormat (amount) {
   return Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, style: 'currency', currency: 'GBP' })
 }
 
-function getScoreChance (rating) {
-  switch (rating.toLowerCase()) {
-    case 'strong':
-      return 'seems likely to'
-    case 'average':
-      return 'might'
-    default:
-      return 'seems unlikely to'
-  }
-}
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
@@ -178,9 +158,8 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       firstName: isAgentEmail ? submission.agentsDetails.firstName : submission.farmerDetails.firstName,
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
-      overallRating: desirabilityScore.desirability.overallRating.band,
-      scoreChance: getScoreChance(desirabilityScore.desirability.overallRating.band),
-      projectSubject: submission.projectSubject,
+      overallRating: 'eligibile',
+      scoreChance: 'yes',
       legalStatus: submission.legalStatus,
       projectPostcode: submission.farmerDetails.projectPostcode,
       location: submission.inEngland,
@@ -189,11 +168,10 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       tenancy: submission.tenancy,
       isTenancyLength: submission.tenancyLength ? 'Yes' : 'No',
       tenancyLength: submission.tenancyLength ?? ' ',
-      projectItems: submission.projectItems ? [submission.projectItems].flat().join(', ') : '',
-      storageNeeded: submission.storage,
-      projectCost: getCurrencyFormat(submission.projectCost.replace(/,/g, '')),
-      potentialFunding: getCurrencyFormat(submission.calculatedGrant),
-      remainingCost: getCurrencyFormat(submission.remainingCost),
+      projectItems: submission.otherItems,
+      projectCost: getCurrencyFormat(submission.itemsTotalValue),
+      potentialFunding: getCurrencyFormat(submission.itemsTotalValue),
+      remainingCost: submission.remainingCosts,
       projectName: submission.businessDetails.projectName,
       businessName: submission.businessDetails.businessName,
       farmerName: submission.farmerDetails.firstName,
@@ -205,17 +183,6 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       agentEmail: submission.agentsDetails?.emailAddress ?? ' ',
       contactConsent: submission.consentOptional ? 'Yes' : 'No',
       scoreDate: new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }),
-      productsProcessed: submission.productsProcessed ?? ' ',
-      productsProcessedScore: submission.productsProcessed ? getQuestionScoreBand(desirabilityScore.desirability.questions, 'products-processed') : ' ',
-      howAddingValue: submission.howAddingValue ?? ' ',
-      projectImpact: submission.projectImpact ? [submission.projectImpact].join(', ') : ' ',
-      projectImpactScore: submission.projectImpact ? getQuestionScoreBand(desirabilityScore.desirability.questions, 'project-impact') : ' ',
-      futureCustomers: submission.futureCustomers ? [submission.futureCustomers].flat().join(', ') : ' ',
-      futureCustomersScore: submission.futureCustomers ? getQuestionScoreBand(desirabilityScore.desirability.questions, 'future-customers') : ' ',
-      collaboration: submission.collaboration ?? ' ',
-      collaborationScore: submission.collaboration ? getQuestionScoreBand(desirabilityScore.desirability.questions, 'collaboration') : ' ',
-      environmentalImpact: submission.environmentalImpact ? [submission.environmentalImpact].flat().join(', ') : ' ',
-      environmentalImpactScore: submission.environmentalImpact ? getQuestionScoreBand(desirabilityScore.desirability.questions, 'environmental-impact') : ' ',
       businessType: submission.applicantBusiness
     }
   }
