@@ -17,9 +17,7 @@ jest.mock('../../app/config/spreadsheet', () => ({
   sendEmailToRpa: true,
   protectPassword: mockPassword
 }))
-receivers.startProjectDetailsReceiver = jest.fn((a) => null)
 receivers.startContactDetailsReceiver = jest.fn((b) => null)
-receivers.startDesirabilityScoreReceiver = jest.fn((c) => null)
 const indexInit = require('../../app/index')
 
 afterEach(() => {

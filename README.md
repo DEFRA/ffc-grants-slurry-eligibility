@@ -55,9 +55,7 @@ overridden by build and release pipelines.
 | DESIRABILITY_SCORE_SUBSCRIPTION_ADDRESS   | queue subscription address           | no        |                    |                             |                                                                                   |
 | DESIRABILITY_SCORE_TOPIC_ADDRESS          | queue topic address                  | no        |                    |                             |                                                                                   |
 | DESIRABILITY_SUBMITTED_TOPIC_ADDRESS      | queue topic address                | no        |                    |                             |                                                                                   |
-| CALCULATE_SCORE_QUEUE_ADDRESS             | service queue address                     | no        |                    |                             |                                                                                   |
 | CONTACT_DETAILS_QUEUE_ADDRESS             | service queue address                     | no        |                    |                             |                                                                                   |
-| PROJECT_DETAILS_QUEUE_ADDRESS             | service queue address                     | no        |                    |                             |                                                                                   |
 | NOTIFY_EMAIL_TEMPLATE                     | notification email template               | yes       |                    |                             |                                                                                   |
 | WORKSHEET_HIDE_EMPTY_ROWS                 | hid empty rows?                           | yes       |                    |                             |                                                                                   |
 | WORKSHEET_PROTECT_ENABLED                 | worksheet protected?                      | yes       |                    |                             |                                                                                   |
@@ -69,7 +67,7 @@ overridden by build and release pipelines.
 Running the integration tests locally requires access to ASB, this can be
 achieved by setting the following environment variables:
 `SERVICE_BUS_HOST`, `SERVICE_BUS_USER`, `SERVICE_BUS_PASSWORD`.
-`PROJECT_DETAILS_QUEUE_ADDRESS`, `CONTACT_DETAILS_QUEUE_ADDRESS`, `CALCULATE_SCORE_QUEUE_ADDRESS` must be set to a valid, developer specific queue that is
+ `CONTACT_DETAILS_QUEUE_ADDRESS` must be set to a valid, developer specific queue that is
 available on ASB e.g. `ffc-grants-slurry-eligibility-<initials>` where `<initials>` are the
 initials of the developer.
 

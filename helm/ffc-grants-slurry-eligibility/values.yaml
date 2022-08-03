@@ -41,9 +41,7 @@ container:
   allowPrivilegeEscalation: false
   port: 3000
   messageQueueHost: dummy
-  projectDetailsQueueAddress: project-details
   contactDetailsQueueAddress: contact-details
-  calculateScoreQueueAddress: calculate-score
   desirabilityScoreSubscriptionAddress: desirability-score-subscription
   desirabilityScoreTopicAddress: desirability-score-topic
   desirabilitySubmittedTopicAddress: desirability-submitted
