@@ -159,7 +159,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
       legalStatus: submission.legalStatus,
-      applicantType:submission.applicantType.split(','),
+      applicantType:submission.applicantType,
       location: submission.inEngland,
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
