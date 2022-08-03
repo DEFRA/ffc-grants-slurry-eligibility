@@ -158,8 +158,6 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       firstName: isAgentEmail ? submission.agentsDetails.firstName : submission.farmerDetails.firstName,
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
-      overallRating: 'eligibile',
-      scoreChance: 'yes',
       legalStatus: submission.legalStatus,
       projectPostcode: submission.farmerDetails.projectPostcode,
       location: submission.inEngland,

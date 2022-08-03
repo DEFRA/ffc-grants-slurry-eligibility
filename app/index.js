@@ -6,9 +6,7 @@ const desirabilityScoreAction = require('./messaging/desirability-score')
 const cache = require('./cache')
 
 const init = async () => {
-  receivers.startProjectDetailsReceiver(processDesirabiltyAction)
   receivers.startContactDetailsReceiver(processSubmissionAction)
-  receivers.startDesirabilityScoreReceiver(desirabilityScoreAction)
   cache.initialise(server)
   require('./services/app-insights').setup()
   await server.start()
