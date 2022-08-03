@@ -173,6 +173,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       planningPermission: submission.planningPermission,
       projectPostcode: submission.farmerDetails.projectPostcode,
       projectStart: submission.projectStart,
+      serviceCapacityIncrease:submission.serviceCapacityIncrease,
       tenancy: submission.tenancy,
       isTenancyLength: submission.tenancyLength ? 'Yes' : 'No',
       tenancyLength: submission.tenancyLength ?? ' ',
