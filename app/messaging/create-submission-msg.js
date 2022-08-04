@@ -148,6 +148,9 @@ function getCurrencyFormat (amount) {
   return Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, style: 'currency', currency: 'GBP' })
 }
 
+function displayObject (obj){
+return  Object.entries(obj).map((entry) => entry.join(': '))
+}
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
@@ -159,13 +162,14 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
       legalStatus: submission.legalStatus,
+      applicantType : submission.applicantType ? submission.applicantType.join(', ') : ' ',
       location: submission.inEngland,
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
       plannedStorageCapacity:submission.plannedStorageCapacity,
       cover:submission.cover,
       coverSize:submission.coverSize,
-      otherItems:submission.otherItems,
+      otherItems: submission.otherItems ? submission.otherItems.join(', ') : ' ',
       coverType:submission.coverType,
       storageType:submission.storageType,
       planningAuthority: submission.PlanningPermissionEvidence.planningAuthority,
@@ -177,10 +181,11 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       tenancy: submission.tenancy,
       isTenancyLength: submission.tenancyLength ? 'Yes' : 'No',
       tenancyLength: submission.tenancyLength ?? ' ',
-      projectItems: submission.otherItems,
       projectCost: getCurrencyFormat(submission.itemsTotalValue),
       potentialFunding: getCurrencyFormat(submission.itemsTotalValue),
       remainingCost: submission.remainingCosts,
+      gridReference:submission.gridReference.gridReferenceNumber,
+      itemSizeQuantities:displayObject(submission.itemSizeQuantities) ? displayObject(submission.itemSizeQuantities).join(', '): ' ',
       projectName: submission.businessDetails.projectName,
       projectType:submission.projectType,
       businessName: submission.businessDetails.businessName,
