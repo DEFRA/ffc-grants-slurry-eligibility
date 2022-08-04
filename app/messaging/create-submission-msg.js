@@ -150,7 +150,7 @@ function getCurrencyFormat (amount) {
 
 function displayObject (obj, otherItems){
   return Object.values(obj).map((val, index) => `${otherItems[index]}: ${val}`)
-}
+
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
