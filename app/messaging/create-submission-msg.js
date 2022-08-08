@@ -148,8 +148,8 @@ function getCurrencyFormat (amount) {
   return Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, style: 'currency', currency: 'GBP' })
 }
 
-function displayObject (obj){
-return  Object.entries(obj).map((entry) => entry.join(': '))
+function displayObject (obj, otherItems){
+  return Object.values(obj).map((val, index) => `${otherItems[index]}: ${val}`)
 }
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
@@ -185,7 +185,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       potentialFunding: getCurrencyFormat(submission.itemsTotalValue),
       remainingCost: submission.remainingCosts,
       gridReference:submission.gridReference.gridReferenceNumber,
-      itemSizeQuantities:displayObject(submission.itemSizeQuantities) ? displayObject(submission.itemSizeQuantities).join(', '): ' ',
+      itemSizeQuantities:displayObject(submission.itemSizeQuantities, submission.otherItems) ? displayObject(submission.itemSizeQuantities, submission.otherItems).join('\n'): ' ',
       projectName: submission.businessDetails.projectName,
       projectType:submission.projectType,
       businessName: submission.businessDetails.businessName,
