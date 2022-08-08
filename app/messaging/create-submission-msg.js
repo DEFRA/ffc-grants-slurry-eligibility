@@ -152,6 +152,10 @@ function displayObject (obj, otherItems){
   return Object.values(obj).map((val, index) => `${otherItems[index]}: ${val}`)
 }
 
+function applicantType(val) {
+  return typeof val === "string" ? val : val.length == 1  ? val[0] : val.join(', ')
+}
+
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
   return {
@@ -162,7 +166,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
       legalStatus: submission.legalStatus,
-      applicantType : submission.applicantType ? submission.applicantType.join(', ') : ' ',
+      applicantType : applicantType(submission.applicantType),
       location: submission.inEngland,
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
@@ -172,7 +176,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       otherItems: submission.otherItems ? submission.otherItems.join(', ') : ' ',
       coverType:submission.coverType,
       storageType:submission.storageType,
-      planningAuthority: submission.PlanningPermissionEvidence.planningAuthority,
+      planningAuthority: submission.PlanningPermissionEvidence.planningAuthority.toUpperCase(),
       planningReferenceNumber: submission.PlanningPermissionEvidence.planningReferenceNumber,
       planningPermission: submission.planningPermission,
       projectPostcode: submission.farmerDetails.projectPostcode,
