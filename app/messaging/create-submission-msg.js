@@ -152,10 +152,6 @@ function displayObject (obj, otherItems){
   return Object.values(obj).map((val, index) => `${otherItems[index]}: ${val}`)
 }
 
-function applicantType(val) {
-  return typeof val === "string" ? val : val.length == 1  ? val[0] : val.join(', ')
-}
-
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
   return {
@@ -166,18 +162,18 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
       legalStatus: submission.legalStatus,
-      applicantType : applicantType(submission.applicantType),
+      applicantType : submission.applicantType ? [submission.applicantType].flat().join(', ') : ' ',
       location: submission.inEngland,
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
       plannedStorageCapacity:submission.plannedStorageCapacity,
       cover:submission.cover,
-      coverSize:submission.coverSize,
-      otherItems: submission.otherItems ? submission.otherItems.join(', ') : ' ',
-      coverType:submission.coverType,
+      coverSize:submission.coverSize ?? ' ',
+      otherItems: submission.otherItems ? [submission.otherItems].flat().join(', ') : ' ',
+      coverType:submission.coverType ?? ' ',
       storageType:submission.storageType,
-      planningAuthority: submission.PlanningPermissionEvidence.planningAuthority.toUpperCase(),
-      planningReferenceNumber: submission.PlanningPermissionEvidence.planningReferenceNumber,
+      planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
+      planningReferenceNumber: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningReferenceNumber : ' ',
       planningPermission: submission.planningPermission,
       projectPostcode: submission.farmerDetails.projectPostcode,
       projectStart: submission.projectStart,
@@ -188,8 +184,8 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       projectCost: getCurrencyFormat(submission.itemsTotalValue),
       potentialFunding: getCurrencyFormat(submission.itemsTotalValue),
       remainingCost: submission.remainingCosts,
-      gridReference:submission.gridReference.gridReferenceNumber,
-      itemSizeQuantities:displayObject(submission.itemSizeQuantities, submission.otherItems) ? displayObject(submission.itemSizeQuantities, submission.otherItems).join('\n'): ' ',
+      gridReference: submission.gridReference.gridReferenceNumber,
+      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, submission.otherItems).join('\n'): ' ',
       projectName: submission.businessDetails.projectName,
       projectType:submission.projectType,
       businessName: submission.businessDetails.businessName,
