@@ -148,8 +148,8 @@ function getCurrencyFormat (amount) {
   return Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, style: 'currency', currency: 'GBP' })
 }
 
-function displayObject (obj, otherItems){
-  return Object.values(obj).map((val, index) => `${otherItems[index]}: ${val}`)
+function displayObject (itemSizeQuantities, otherItems){
+  return Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => `${[otherItems].flat()[index]}: ${itemSizeQuantity} unit(s)`)
 }
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
@@ -202,6 +202,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
     }
   }
 }
+
 function spreadsheet (submission, desirabilityScore) {
   const data = getSpreadsheetDetails(submission, desirabilityScore)
   return data
