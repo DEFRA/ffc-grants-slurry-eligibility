@@ -71,17 +71,10 @@ const getPlanningPermissionDoraValue = (planningPermission) => {
 }
 function getProjectItemsFormattedArray(itemSizeQuantities, otherItems, storageType, storageCapacity, coverType, coverSize) {
   const projectItems = []
-  
-  if (otherItems !== 'None of the above') {
+  if (otherItems[0] !== 'None of the above') {
     let unit
     Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => {
-      if (otherItems[index].toLowerCase().includes('pump') || otherItems[index].toLowerCase().includes('slurry store')) {
-        unit = 'item(s)'
-      } else if (otherItems[index].toLowerCase().includes('pipework') || otherItems[index].toLowerCase().includes('channels') || otherItems[index].toLowerCase().includes('below ground')) {
-        unit = 'm'
-      } else {
-        unit = 'm³'
-      }
+      unit = getItemUnit(otherItems[index].toLowerCase())
       projectItems.push(`${otherItems[index]}~${itemSizeQuantity}~${unit}`)
     })
   } else {
@@ -100,7 +93,7 @@ function getProjectItemsFormattedArray(itemSizeQuantities, otherItems, storageTy
 function getSpreadsheetDetails (submission, desirabilityScore) {
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
-  const schemeName = 'Slurry Infrastructure'
+  const schemeName = 'Slurry Infrastructure Grants'
   const subScheme = `FTF-${schemeName}`
 
   return {
@@ -129,8 +122,7 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(53, 'Business type', getBusinessTypeC53(submission.applicantType)),
           generateRow(341, 'Grant Launch Date', ''),
           generateRow(23, 'Status of applicant', submission.legalStatus),
-          generateRow(44, 'Project Items', getProjectItemsFormattedArray(submission.itemSizeQuantities, [submission.otherItems].flat(), submission.storageType, submission.serviceCapacityIncrease, submission.coverType, submission.coverSize)),/////////
-
+          generateRow(44, 'Project Items', getProjectItemsFormattedArray(submission.itemSizeQuantities, [submission.otherItems].flat(), submission.storageType, submission.serviceCapacityIncrease, submission.coverType, submission.coverSize)),
           generateRow(45, 'Location of project (postcode)', submission.farmerDetails.projectPostcode),
           generateRow(376, 'Project Started', submission.projectStart),
           generateRow(342, 'Land owned by Farm', submission.tenancy),
@@ -146,8 +138,8 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(345, 'Remaining Cost to Farmer', submission.remainingCost),
           generateRow(346, 'Planning Permission Status', getPlanningPermissionDoraValue(submission.planningPermission)),
           generateRow(400, 'Planning Authority', submission.PlanningPermissionEvidence?.planningAuthority.toUpperCase() ?? ''),
-          generateRow(401, 'Planning Reference N0', submission.PlanningPermissionEvidence?.planningReferenceNumber ?? ''),
-          generateRow(402, 'OS Grid Reference', submission.gridReference.gridReferenceNumber),
+          generateRow(401, 'Planning Reference No', submission.PlanningPermissionEvidence?.planningReferenceNumber ?? ''),
+          generateRow(402, 'OS Grid Reference', submission.gridReference.gridReferenceNumber.toUpperCase()),
           generateRow(366, 'Date of OA decision', ''),
           generateRow(42, 'Project name', submission.businessDetails.projectName),
           generateRow(4, 'Single business identifier (SBI)', submission.businessDetails.sbi || '000000000'), // sbi is '' if not set so use || instead of ??
@@ -189,9 +181,25 @@ function getCurrencyFormat (amount) {
   return Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, style: 'currency', currency: 'GBP' })
 }
 
-function displayObject(itemSizeQuantities, otherItems) {
-  return Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => `${[otherItems].flat()[index]}: ${itemSizeQuantity} unit(s)`)
+const getItemUnit = (otherItem) => {
+  if (otherItem.includes('pump') || otherItem.includes('slurry store')) {
+    return 'item(s)'
+  } else if (otherItem.includes('pipework') || otherItem.includes('channels') || otherItem.includes('below ground')) {
+    return 'm'
+  } else {
+    unit = 'm³'
+  }
 }
+
+function displayObject(itemSizeQuantities, otherItems) {
+  let unit
+  const projectItems = Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => {
+    unit = getItemUnit(otherItems[index].toLowerCase())
+    return `${otherItems[index]}: ${itemSizeQuantity} ${unit}`
+  })
+  console.log(projectItems)
+  return projectItems
+} 
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
@@ -208,10 +216,10 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
       plannedStorageCapacity:submission.plannedStorageCapacity,
-      cover: submission.cover,
-      coverSize: submission.coverSize ?? ' ',
+      cover: submission.cover ?? ' ',
+      coverSize: submission.coverSize ?? 0,
       otherItems: submission.otherItems ? [submission.otherItems].flat().join(', ') : ' ',
-      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, submission.otherItems).join('\n') : ' ',
+      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : ' ',
       coverType: submission.coverType ?? ' ',
       storageType: submission.storageType,
       planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
