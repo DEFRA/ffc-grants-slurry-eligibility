@@ -187,7 +187,7 @@ const getItemUnit = (otherItem) => {
   } else if (otherItem.includes('pipework') || otherItem.includes('channels') || otherItem.includes('below ground')) {
     return 'm'
   } else {
-    unit = 'm³'
+    return 'm³'
   }
 }
 
