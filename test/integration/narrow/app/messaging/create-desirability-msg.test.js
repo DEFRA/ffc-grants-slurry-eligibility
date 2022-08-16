@@ -3,14 +3,7 @@ describe('Desirability score', () => {
 
   it('should retrieve a desirability score', async () => {
     const answers = {
-      'products-processed': 'products processed answer',
-      'how-adding-value': 'how adding value answer',
-      'project-impact': 'project impact answer',
-      'future-customers': 'future customers answer',
-      collaboration: 'collaboration answer',
-      'products-coming-from': 'products coming from answer',
-      'processed-sold': 'process sold answer',
-      'environmental-impact': 'environmental impact answer'
+      collaboration: 'collaboration answer'
     }
 
     const result = desirability(answers)
