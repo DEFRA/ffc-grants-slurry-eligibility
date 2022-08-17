@@ -56,20 +56,44 @@ function generateExcelFilename (scheme, projectName, businessName, referenceNumb
   return `${scheme}_${projectName}_${businessName}_${referenceNumber}_${dateTime}.xlsx`
 }
 function getBusinessTypeC53 (businessType) {
-  return 'value' ? 'processor' : 'producer'
+  return (typeof businessType === 'string') ? `${businessType} farmer` : 'farmer with livestock'
 }
 
-function getProjectItems (projectItems, storage) {
-  if (storage.includes('Yes')) {
-    projectItems.push('Storage Facilities')
+const getPlanningPermissionDoraValue = (planningPermission) => {
+  switch (planningPermission) {
+    case 'Applied for but not yet approved':
+      return 'Applied for'
+    case 'Not yet applied for but expected to be in place by 31 December 2023':
+      return 'Not yet applied for'
+    default:
+      return 'Approved'
   }
+}
+function getProjectItemsFormattedArray(itemSizeQuantities, otherItems, storageType, storageCapacity, coverType, coverSize) {
+  const projectItems = []
+  if (otherItems[0] !== 'None of the above') {
+    let unit
+    Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => {
+      unit = getItemUnit(otherItems[index].toLowerCase())
+      projectItems.push(`${otherItems[index]}~${itemSizeQuantity}~${unit}`)
+    })
+  } else {
+    projectItems.push('')
+  }
+
+  if (coverType && coverType !== 'Not needed') {
+    projectItems.unshift(`${coverType}~${coverSize}`)
+  } else {
+    projectItems.unshift('')
+  }
+
+  projectItems.unshift(`${storageType}~${storageCapacity}`)
   return projectItems.join('|')
 }
 function getSpreadsheetDetails (submission, desirabilityScore) {
-  console.log('INSIDE SPREADSHEET FORMAT', submission, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
-  const schemeName = 'Slurry Infrastructure'
+  const schemeName = 'Slurry Infrastructure Grants'
   const subScheme = `FTF-${schemeName}`
 
   return {
@@ -93,21 +117,29 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(40, 'Scheme', 'Farming Transformation Fund'),
           generateRow(39, 'Sub scheme', subScheme),
           generateRow(43, 'Theme', 'Slurry Infrastructure'),
-          generateRow(90, 'Project type', 'Slurry Infrastructure'),
+          generateRow(90, 'Project type', 'Slurry Store and Cover'),
           generateRow(41, 'Owner', 'RD'),
+          generateRow(53, 'Business type', getBusinessTypeC53(submission.applicantType)),
           generateRow(341, 'Grant Launch Date', ''),
           generateRow(23, 'Status of applicant', submission.legalStatus),
-          generateRow(44, 'Project Items', submission.otherItems),
+          generateRow(44, 'Project Items', getProjectItemsFormattedArray(submission.itemSizeQuantities, [submission.otherItems].flat(), submission.storageType, submission.serviceCapacityIncrease, submission.coverType, submission.coverSize)),
           generateRow(45, 'Location of project (postcode)', submission.farmerDetails.projectPostcode),
           generateRow(376, 'Project Started', submission.projectStart),
           generateRow(342, 'Land owned by Farm', submission.tenancy),
           generateRow(343, 'Tenancy for next 5 years', submission.tenancyLength ?? ''),
+          generateRow(395, 'System Type', submission.systemType),
+          generateRow(396, 'Existing Storage Capacity', submission.existingStorageCapacity),
+          generateRow(397, 'Planned Storage Capacity', submission.plannedStorageCapacity),
+          generateRow(398, 'Slurry Storage Improvement Method', submission.projectType),
+          generateRow(399, 'Impermeable cover', submission.cover),
           generateRow(55, 'Total project expenditure', String(submission.itemsTotalValue).replace(/,/g, '')),
-          generateRow(57, 'Grant rate', '40'),
-          generateRow(56, 'Grant amount requested', submission.itemsTotalValue),
-          generateRow(345, 'Remaining Cost to Farmer', submission.remainingCosts),
-          generateRow(346, 'Planning Permission Status', submission.planningPermission),
-          generateRow(49, 'Site of Special Scientific Interest (SSSI)', submission.sSSI ?? ''),
+          generateRow(57, 'Grant rate', '50'),
+          generateRow(56, 'Grant amount requested', submission.calculatedGrant),
+          generateRow(345, 'Remaining Cost to Farmer', submission.remainingCost),
+          generateRow(346, 'Planning Permission Status', getPlanningPermissionDoraValue(submission.planningPermission)),
+          generateRow(400, 'Planning Authority', submission.PlanningPermissionEvidence?.planningAuthority.toUpperCase() ?? ''),
+          generateRow(401, 'Planning Reference No', submission.PlanningPermissionEvidence?.planningReferenceNumber ?? ''),
+          generateRow(402, 'OS Grid Reference', submission.gridReference.gridReferenceNumber.toUpperCase()),
           generateRow(366, 'Date of OA decision', ''),
           generateRow(42, 'Project name', submission.businessDetails.projectName),
           generateRow(4, 'Single business identifier (SBI)', submission.businessDetails.sbi || '000000000'), // sbi is '' if not set so use || instead of ??
@@ -136,7 +168,8 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(54, 'Electronic OA received date ', todayStr),
           generateRow(370, 'Status', 'Pending RPA review'),
           generateRow(85, 'Full Application Submission Date', (new Date(today.setMonth(today.getMonth() + 6))).toLocaleDateString('en-GB')),
-          generateRow(375, 'OA percent', 'placeholder 1'),
+          generateRow(375, 'OA percent', 0),
+          generateRow(365, 'OA score', 0),
           ...addAgentDetails(submission.agentsDetails)
         ]
       }
@@ -148,9 +181,25 @@ function getCurrencyFormat (amount) {
   return Number(amount).toLocaleString('en-US', { minimumFractionDigits: 0, style: 'currency', currency: 'GBP' })
 }
 
-function displayObject (itemSizeQuantities, otherItems){
-  return Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => `${[otherItems].flat()[index]}: ${itemSizeQuantity} unit(s)`)
+const getItemUnit = (otherItem) => {
+  if (otherItem.includes('pump') || otherItem.includes('slurry store')) {
+    return 'item(s)'
+  } else if (otherItem.includes('pipework') || otherItem.includes('channels') || otherItem.includes('below ground')) {
+    return 'm'
+  } else {
+    return 'm³'
+  }
 }
+
+function displayObject(itemSizeQuantities, otherItems) {
+  let unit
+  const projectItems = Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => {
+    unit = getItemUnit(otherItems[index].toLowerCase())
+    return `${otherItems[index]}: ${itemSizeQuantity} ${unit}`
+  })
+  console.log(projectItems)
+  return projectItems
+} 
 
 function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
@@ -162,15 +211,17 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
       referenceNumber: submission.confirmationId,
       legalStatus: submission.legalStatus,
-      applicantType : submission.applicantType ? [submission.applicantType].flat().join(', ') : ' ',
+      applicantType: submission.applicantType ? [submission.applicantType].flat().join(', ') : ' ',
       location: submission.inEngland,
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
       plannedStorageCapacity:submission.plannedStorageCapacity,
-      cover:submission.cover,
-      coverSize:submission.coverSize ?? ' ',
-      coverType:submission.coverType ?? ' ',
-      storageType:submission.storageType,
+      cover: submission.cover ?? ' ',
+      coverSize: submission.coverSize ?? 0,
+      otherItems: submission.otherItems ? [submission.otherItems].flat().join(', ') : ' ',
+      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'no items selected',
+      coverType: submission.coverType ?? ' ',
+      storageType: submission.storageType,
       planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
       planningReferenceNumber: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningReferenceNumber : ' ',
       planningPermission: submission.planningPermission,
@@ -181,10 +232,9 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       isTenancyLength: submission.tenancyLength ? 'Yes' : 'No',
       tenancyLength: submission.tenancyLength ?? ' ',
       projectCost: getCurrencyFormat(submission.itemsTotalValue),
-      potentialFunding: getCurrencyFormat(submission.itemsTotalValue),
+      potentialFunding: getCurrencyFormat(submission.calculatedGrant),
       remainingCost: submission.remainingCosts,
-      gridReference: submission.gridReference.gridReferenceNumber,
-      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, submission.otherItems).join('\n'): 'no items selected',
+      gridReference: submission.gridReference.gridReferenceNumber.toUpperCase(),
       projectName: submission.businessDetails.projectName,
       projectType:submission.projectType,
       businessName: submission.businessDetails.businessName,
