@@ -218,7 +218,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       plannedStorageCapacity:submission.plannedStorageCapacity,
       cover: submission.cover ?? ' ',
       coverSize: submission.coverSize ?? 0,
-      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'no items selected',
+      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
       coverType: submission.coverType ?? ' ',
       storageType: submission.storageType,
       planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
