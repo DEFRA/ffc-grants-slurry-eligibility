@@ -1,12 +1,6 @@
 const emailConfig = require('../config/email')
 const spreadsheetConfig = require('../config/spreadsheet')
 
-function getQuestionScoreBand (questions, questionKey) {
-  return questions.filter(question => question.key === questionKey).length > 0
-    ? questions.find(question => question.key === questionKey).rating.band
-    : ''
-}
-
 function generateRow (rowNumber, name, value, bold = false) {
   return {
     row: rowNumber,
