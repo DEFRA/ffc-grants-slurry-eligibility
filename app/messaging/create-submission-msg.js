@@ -69,7 +69,8 @@ const getPlanningPermissionDoraValue = (planningPermission) => {
       return 'Approved'
   }
 }
-function getProjectItemsFormattedArray(itemSizeQuantities, otherItems, storageType, storageCapacity, coverType, coverSize) {
+
+function getProjectItemsFormattedArray (itemSizeQuantities, otherItems, storageType, storageCapacity, coverType, coverSize) {
   const projectItems = []
   if (otherItems[0] !== 'None of the above') {
     let unit
@@ -90,7 +91,8 @@ function getProjectItemsFormattedArray(itemSizeQuantities, otherItems, storageTy
   projectItems.unshift(`${storageType}~${storageCapacity}`)
   return projectItems.join('|')
 }
-function getSpreadsheetDetails (submission, desirabilityScore) {
+
+function getSpreadsheetDetails (submission) {
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
   const schemeName = 'Slurry Infrastructure Grants'
@@ -191,7 +193,7 @@ const getItemUnit = (otherItem) => {
   }
 }
 
-function displayObject(itemSizeQuantities, otherItems) {
+function displayObject (itemSizeQuantities, otherItems) {
   let unit
   const projectItems = Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => {
     unit = getItemUnit(otherItems[index].toLowerCase())
@@ -199,9 +201,9 @@ function displayObject(itemSizeQuantities, otherItems) {
   })
   console.log(projectItems)
   return projectItems
-} 
+}
 
-function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail = false) {
+function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
   return {
     notifyTemplate: emailConfig.notifyTemplate,
@@ -213,9 +215,9 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       legalStatus: submission.legalStatus,
       applicantType: submission.applicantType ? [submission.applicantType].flat().join(', ') : ' ',
       location: submission.inEngland,
-      systemType:submission.systemType,
-      existingStorageCapacity:submission.existingStorageCapacity,
-      plannedStorageCapacity:submission.plannedStorageCapacity,
+      systemType: submission.systemType,
+      existingStorageCapacity: submission.existingStorageCapacity,
+      plannedStorageCapacity: submission.plannedStorageCapacity,
       cover: submission.cover ?? ' ',
       coverSize: submission.coverSize ?? 0,
       otherItems: submission.otherItems ? [submission.otherItems].flat().join(', ') : ' ',
@@ -227,7 +229,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       planningPermission: submission.planningPermission,
       projectPostcode: submission.farmerDetails.projectPostcode,
       projectStart: submission.projectStart,
-      serviceCapacityIncrease:submission.serviceCapacityIncrease,
+      serviceCapacityIncrease: submission.serviceCapacityIncrease,
       tenancy: submission.tenancy,
       isTenancyLength: submission.tenancyLength ? 'Yes' : 'No',
       tenancyLength: submission.tenancyLength ?? ' ',
@@ -236,7 +238,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       remainingCost: submission.remainingCosts,
       gridReference: submission.gridReference.gridReferenceNumber,
       projectName: submission.businessDetails.projectName,
-      projectType:submission.projectType,
+      projectType: submission.projectType,
       businessName: submission.businessDetails.businessName,
       farmerName: submission.farmerDetails.firstName,
       farmerSurname: submission.farmerDetails.lastName,
@@ -252,16 +254,16 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
   }
 }
 
-function spreadsheet (submission, desirabilityScore) {
-  const data = getSpreadsheetDetails(submission, desirabilityScore)
+function spreadsheet (submission) {
+  const data = getSpreadsheetDetails(submission)
   return data
 }
 
-module.exports = function (submission, desirabilityScore) {
+module.exports = function (submission) {
   return {
-    applicantEmail: getEmailDetails(submission, desirabilityScore, false),
-    agentEmail: submission.applying === 'Agent' ? getEmailDetails(submission, desirabilityScore, false, true) : null,
-    rpaEmail: spreadsheetConfig.sendEmailToRpa ? getEmailDetails(submission, desirabilityScore, spreadsheetConfig.rpaEmail) : null,
-    spreadsheet: spreadsheet(submission, desirabilityScore)
+    applicantEmail: getEmailDetails(submission, false),
+    agentEmail: submission.applying === 'Agent' ? getEmailDetails(submission, false, true) : null,
+    rpaEmail: spreadsheetConfig.sendEmailToRpa ? getEmailDetails(submission, spreadsheetConfig.rpaEmail) : null,
+    spreadsheet: spreadsheet(submission)
   }
 }
