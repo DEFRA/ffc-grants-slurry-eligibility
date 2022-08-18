@@ -127,7 +127,7 @@ function getSpreadsheetDetails (submission) {
           generateRow(396, 'Existing Storage Capacity', submission.existingStorageCapacity),
           generateRow(397, 'Planned Storage Capacity', submission.plannedStorageCapacity),
           generateRow(398, 'Slurry Storage Improvement Method', submission.projectType),
-          generateRow(399, 'impermeable cover', submission.cover),
+          generateRow(399, 'Impermeable cover', submission.cover),
           generateRow(55, 'Total project expenditure', String(submission.itemsTotalValue).replace(/,/g, '')),
           generateRow(57, 'Grant rate', '50'),
           generateRow(56, 'Grant amount requested', submission.calculatedGrant),
@@ -183,7 +183,7 @@ const getItemUnit = (otherItem) => {
   } else if (otherItem.includes('pipework') || otherItem.includes('channels') || otherItem.includes('below ground')) {
     return 'm'
   } else {
-    unit = 'm³'
+    return 'm³'
   }
 }
 
@@ -214,8 +214,7 @@ function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
       plannedStorageCapacity: submission.plannedStorageCapacity,
       cover: submission.cover ?? ' ',
       coverSize: submission.coverSize ?? 0,
-      otherItems: submission.otherItems ? [submission.otherItems].flat().join(', ') : ' ',
-      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : ' ',
+      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
       coverType: submission.coverType ?? ' ',
       storageType: submission.storageType,
       planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
@@ -230,7 +229,7 @@ function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
       projectCost: getCurrencyFormat(submission.itemsTotalValue),
       potentialFunding: getCurrencyFormat(submission.calculatedGrant),
       remainingCost: submission.remainingCosts,
-      gridReference: submission.gridReference.gridReferenceNumber,
+      gridReference: submission.gridReference.gridReferenceNumber.toUpperCase(),
       projectName: submission.businessDetails.projectName,
       projectType: submission.projectType,
       businessName: submission.businessDetails.businessName,
