@@ -216,7 +216,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       systemType:submission.systemType,
       existingStorageCapacity:submission.existingStorageCapacity,
       plannedStorageCapacity:submission.plannedStorageCapacity,
-      cover: submission.cover ?? '',
+      cover: submission.cover ?? ' ',
       coverSize: submission.coverSize ? submission.coverSize : '0',
       itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
       coverType: submission.coverType ? submission.coverType : 'Not needed',
