@@ -2,6 +2,8 @@ describe('Create submission messages', () => {
   const createSubmissionMsg = require('../../../../../app/messaging/create-submission-msg')
   const testTimeConstant = new Date(2022, 8, 18)
   const todayStr = testTimeConstant.toLocaleDateString('en-GB')
+  const sixMonthsLater = new Date(testTimeConstant)
+  sixMonthsLater.setMonth(testTimeConstant.getMonth() + 6)
 
   beforeAll(() => {
     jest.useFakeTimers('modern')
@@ -13,18 +15,20 @@ describe('Create submission messages', () => {
   })
 
   it('As a farmer', async () => {
-    const { expectedOutcomeFarmer, farmerSubmission } = require('./create-submission-msg-test-data')
+    const farmerSubmission = require('./farmer-submission')
+    const expectedOutcomeFarmer = require('./expected-outcome-farmer')
 
     const farmerApplicationResult = createSubmissionMsg(farmerSubmission)
 
-    expect(farmerApplicationResult).toEqual(expectedOutcomeFarmer(testTimeConstant, todayStr))
+    expect(farmerApplicationResult).toEqual(expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr))
   })
 
   it('As an agent on a farmers behalf', async () => {
-    const { expectedOutcomeAgent, agentSubmissionForFarmer } = require('./create-submission-msg-test-data')
+    const agentSubmissionForFarmer = require('./agent-submission-for-farmer')
+    const expectedOutcomeAgent = require('./expected-outcome-agent')
 
-    const farmerApplicationResult = createSubmissionMsg(agentSubmissionForFarmer)
+    const agentSubmissionForFarmerApplicationResult = createSubmissionMsg(agentSubmissionForFarmer)
 
-    expect(farmerApplicationResult).toEqual(expectedOutcomeAgent(testTimeConstant, todayStr))
+    expect(agentSubmissionForFarmerApplicationResult).toEqual(expectedOutcomeAgent(testTimeConstant, sixMonthsLater, todayStr))
   })
 })
