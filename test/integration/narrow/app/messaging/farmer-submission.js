@@ -1,3 +1,4 @@
+const { mediumTurnover, microTurnover, smallTurnover, microEmployeesNum, smallEmployeesNum, mediumEmployeesNum } = require('../../../../../app/messaging/business-size-constants')
 const agentSubmissionForFarmer = require('./agent-submission-for-farmer')
 
 const farmerSubmission = { ...agentSubmissionForFarmer }
@@ -26,4 +27,21 @@ farmerSubmission.otherItems = [
 ]
 farmerSubmission.consentOptional = true
 
-module.exports = farmerSubmission
+const farmerSubmissionMicroTurnover = { ...farmerSubmission }
+farmerSubmissionMicroTurnover.businessDetails.businessTurnover = microTurnover - 1
+farmerSubmissionMicroTurnover.businessDetails.numberEmployees = microEmployeesNum - 1
+
+const farmerSubmissionSmallTurnover = { ...farmerSubmission }
+farmerSubmissionSmallTurnover.businessDetails.businessTurnover = smallTurnover - 1
+farmerSubmissionSmallTurnover.businessDetails.numberEmployees = smallEmployeesNum - 1
+
+const farmerSubmissionMediumTurnover = { ...farmerSubmission }
+farmerSubmissionMediumTurnover.businessDetails.businessTurnover = mediumTurnover - 1
+farmerSubmissionMediumTurnover.businessDetails.numberEmployees = mediumEmployeesNum - 1
+
+module.exports = {
+  farmerSubmission,
+  farmerSubmissionMicroTurnover,
+  farmerSubmissionMediumTurnover,
+  farmerSubmissionSmallTurnover
+}

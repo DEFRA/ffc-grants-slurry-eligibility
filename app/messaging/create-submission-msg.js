@@ -1,5 +1,6 @@
 const emailConfig = require('../config/email')
 const spreadsheetConfig = require('../config/spreadsheet')
+const { microTurnover, smallTurnover, mediumTurnover, microEmployeesNum, smallEmployeesNum, mediumEmployeesNum } = require('./business-size-constants')
 
 function generateRow (rowNumber, name, value, bold = false) {
   return {
@@ -13,11 +14,11 @@ function calculateBusinessSize (employees, turnover) {
   const employeesNum = Number(employees)
   const turnoverNum = Number(turnover)
 
-  if (employeesNum < 10 && turnoverNum < 1740000) { // €2m turnover
+  if (employeesNum < microEmployeesNum && turnoverNum < microTurnover) { // €2m turnover
     return 'Micro'
-  } else if (employeesNum < 50 && turnoverNum < 8680000) { // €10m turnover
+  } else if (employeesNum < smallEmployeesNum && turnoverNum < smallTurnover) { // €10m turnover
     return 'Small'
-  } else if (employeesNum < 250 && turnoverNum < 43410000) { // €50m turnover
+  } else if (employeesNum < mediumEmployeesNum && turnoverNum < mediumTurnover) { // €50m turnover
     return 'Medium'
   } else {
     return 'Large'
