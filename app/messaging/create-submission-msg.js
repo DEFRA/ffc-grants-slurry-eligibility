@@ -93,7 +93,7 @@ function getProjectItemsFormattedArray(itemSizeQuantities, otherItems, storageTy
 function getSpreadsheetDetails (submission, desirabilityScore) {
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
-  const schemeName = 'Slurry Infrastructure Grants'
+  const schemeName = 'Slurry Infrastructure'
   const subScheme = `FTF-${schemeName}`
 
   return {
@@ -116,7 +116,7 @@ function getSpreadsheetDetails (submission, desirabilityScore) {
           generateRow(2, 'FA or OA', 'Outline Application'),
           generateRow(40, 'Scheme', 'Farming Transformation Fund'),
           generateRow(39, 'Sub scheme', subScheme),
-          generateRow(43, 'Theme', 'Slurry Infrastructure'),
+          generateRow(43, 'Theme', 'Slurry Infrastructure Grants'),
           generateRow(90, 'Project type', 'Slurry Store and Cover'),
           generateRow(41, 'Owner', 'RD'),
           generateRow(53, 'Business type', getBusinessTypeC53(submission.applicantType)),
@@ -217,7 +217,7 @@ function getEmailDetails(submission, desirabilityScore, rpaEmail, isAgentEmail =
       existingStorageCapacity:submission.existingStorageCapacity,
       plannedStorageCapacity:submission.plannedStorageCapacity,
       cover: submission.cover ?? ' ',
-      coverSize: submission.coverSize || 'N/A',
+      coverSize: submission.coverSize? submission.coverSize.concat('m²') : 'N/A',
       itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
       coverType: submission.coverType || 'Not needed',
       storageType: submission.storageType,
