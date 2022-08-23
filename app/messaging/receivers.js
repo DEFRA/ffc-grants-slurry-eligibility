@@ -2,13 +2,12 @@ const msgCfg = require('../config/messaging')
 const { MessageReceiver } = require('ffc-messaging')
 
 let eligibilityAnswersReceiver
-let projectDetailsReceiver
+
 let contactDetailsReceiver
 let desirabilityScoreReceiver
 
 async function stop () {
   await eligibilityAnswersReceiver.closeConnection()
-  await projectDetailsReceiver.closeConnection()
   await contactDetailsReceiver.closeConnection()
   await desirabilityScoreReceiver.closeConnection()
 }
