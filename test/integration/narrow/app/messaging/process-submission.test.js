@@ -36,7 +36,7 @@ describe('Process submission', () => {
     const error = jest.fn()
     global.console.error = error
 
-    const processSubmission = require('../../../../../app/messaging/process-Submission')
+    const processSubmission = require('../../../../../app/messaging/process-submission')
     processSubmission.completeMessage = jest.fn()
 
     const contactDetailsReceiver = jest.mock()
