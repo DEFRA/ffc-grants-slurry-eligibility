@@ -48,7 +48,7 @@ describe('Process submission', () => {
     const appInsightsMock = jest.mock('../../../../../app/services/app-insights')
     appInsightsMock.logException = jest.fn()
 
-    processSubmission(msg,)
+    processSubmission(msg)
 
     expect(cacheMock.getDesirabilityScore).toThrow()
     expect(error).toHaveBeenCalled()
