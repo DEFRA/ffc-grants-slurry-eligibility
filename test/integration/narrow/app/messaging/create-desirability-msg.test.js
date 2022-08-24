@@ -1,7 +1,7 @@
 describe('Desirability score', () => {
   const desirability = require('../../../../../app/messaging/create-desirability-msg')
 
-  it('should retrieve a desirability score', async () => {
+  test('should retrieve a desirability score', async () => {
     const answers = {
       collaboration: 'collaboration answer'
     }

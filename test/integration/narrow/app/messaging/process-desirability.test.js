@@ -1,5 +1,5 @@
 describe('Process desirability', () => {
-  it('Successful path', async () => {
+  test('Successful path', async () => {
     const log = jest.fn()
     global.console.log = log
     const processDesirability = require('../../../../../app/messaging/process-desirability')
@@ -27,7 +27,7 @@ describe('Process desirability', () => {
     log.mockReset()
   })
 
-  it('Error path', async () => {
+  test('Error path', async () => {
     const error = jest.fn()
     global.console.error = error
 

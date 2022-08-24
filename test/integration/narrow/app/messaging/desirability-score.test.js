@@ -3,7 +3,7 @@ describe('Desirability score', () => {
     console.log = jest.fn()
   })
 
-  it('Successful path', async () => {
+  test('Successful path', async () => {
     const desirabilityScore = require('../../../../../app/messaging/desirability-score')
 
     const cacheMock = jest.mock('../../../../../app/cache')
@@ -25,7 +25,7 @@ describe('Desirability score', () => {
     expect(desirabilityScoreReceiver.completeMessage).toHaveBeenCalled()
   })
 
-  it('Error path', async () => {
+  test('Error path', async () => {
     const desirabilityScore = require('../../../../../app/messaging/desirability-score')
 
     const cacheMock = jest.mock('../../../../../app/cache')

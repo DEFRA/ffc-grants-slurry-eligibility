@@ -14,7 +14,7 @@ describe('Create submission messages', () => {
     jest.useRealTimers()
   })
 
-  it('As a farmer', async () => {
+  test('As a farmer', async () => {
     const { farmerSubmission } = require('./farmer-submission')
     const { expectedOutcomeFarmer } = require('./expected-outcome-farmer')
 
@@ -23,7 +23,7 @@ describe('Create submission messages', () => {
     expect(farmerApplicationResult).toEqual(expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr))
   })
 
-  it('As a farmer with micro turnover', async () => {
+  test('As a farmer with micro turnover', async () => {
     const { farmerSubmissionMicroTurnover } = require('./farmer-submission')
     const { expectedOutcomeFarmerMicro } = require('./expected-outcome-farmer')
 
@@ -34,7 +34,7 @@ describe('Create submission messages', () => {
     expect(submission).toEqual(outcome)
   })
 
-  it('As a farmer with small turnover', async () => {
+  test('As a farmer with small turnover', async () => {
     const { farmerSubmissionSmallTurnover } = require('./farmer-submission')
     const { expectedOutcomeFarmerSmall } = require('./expected-outcome-farmer')
 
@@ -43,7 +43,7 @@ describe('Create submission messages', () => {
     expect(result).toEqual(expectedOutcomeFarmerSmall(testTimeConstant, sixMonthsLater, todayStr))
   })
 
-  it('As a farmer with medium turnover', async () => {
+  test('As a farmer with medium turnover', async () => {
     const { farmerSubmissionMediumTurnover } = require('./farmer-submission')
     const { expectedOutcomeFarmerMedium } = require('./expected-outcome-farmer')
 
@@ -52,7 +52,7 @@ describe('Create submission messages', () => {
     expect(agentSubmissionForFarmerApplicationResult).toEqual(expectedOutcomeFarmerMedium(testTimeConstant, sixMonthsLater, todayStr))
   })
 
-  it('As an agent on a farmers behalf', async () => {
+  test('As an agent on a farmers behalf', async () => {
     const agentSubmissionForFarmer = require('./agent-submission-for-farmer')
     const expectedOutcomeAgent = require('./expected-outcome-agent')
 
