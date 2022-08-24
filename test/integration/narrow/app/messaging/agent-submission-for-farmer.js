@@ -13,9 +13,7 @@ const agentSubmissionForFarmer = {
     lastName: 'Armer',
     projectPostcode: 'TE12ST'
   },
-  gridReference: {
-    gridReferenceNumber: 'A1'
-  },
+  gridReference: 'A1',
   confirmationId: '12345678',
   legalStatus: 'Sole trader',
   inEngland: 'Yes',
