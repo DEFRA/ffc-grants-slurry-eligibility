@@ -5,7 +5,6 @@ const protectiveMonitoringServiceSendEvent = require('../services/protective-mon
 const desirabilitySubmittedSender = new MessageSender(msgCfg.desirabilitySubmittedTopic)
 
 async function stop () {
-  await calculateScoreSender.closeConnection()
   await desirabilitySubmittedSender.closeConnection()
 }
 
@@ -35,7 +34,6 @@ async function sendMsg (sender, msgData, msgType, correlationId) {
 module.exports = {
   sendCalculateScore: async function (calculateScoreData, correlationId) {
     await sendMsg(
-      calculateScoreSender,
       calculateScoreData,
       msgCfg.calculateScoreMsgType,
       correlationId
