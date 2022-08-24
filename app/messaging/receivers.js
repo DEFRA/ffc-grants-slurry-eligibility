@@ -29,7 +29,6 @@ module.exports = {
     await eligibilityAnswersReceiver.subscribe()
   },
   startContactDetailsReceiver: async function (contactDetailsReceived) {
-
     const updateAction = msg => contactDetailsReceived(msg, contactDetailsReceiver)
     contactDetailsReceiver = new MessageReceiver(msgCfg.contactDetailsQueue, updateAction)
     await contactDetailsReceiver.subscribe()
