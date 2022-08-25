@@ -3,6 +3,8 @@ const cacheConfig = require('./config/cache')
 const catbox = cacheConfig.useRedis ? require('@hapi/catbox-redis') : require('@hapi/catbox-memory')
 const catboxOptions = cacheConfig.useRedis ? cacheConfig.redisCatboxOptions : {}
 
+require('dotenv').config()
+
 const server = Hapi.server({
   port: process.env.PORT,
   cache: [{
