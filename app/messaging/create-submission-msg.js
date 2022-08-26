@@ -69,7 +69,7 @@ function getProjectItemsFormattedArray (itemSizeQuantities, otherItems, storageT
   const projectItems = []
   if (otherItems[0] !== 'None of the above') {
     let unit
-    Object.values(itemSizeQuantities).map((itemSizeQuantity, index) => {
+    Object.values(itemSizeQuantities).forEach((itemSizeQuantity, index) => {
       unit = getItemUnit(otherItems[index].toLowerCase())
       projectItems.push(`${otherItems[index]}~${itemSizeQuantity}~${unit}`)
     })
@@ -214,7 +214,7 @@ function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
       existingStorageCapacity: submission.existingStorageCapacity,
       plannedStorageCapacity: submission.plannedStorageCapacity,
       cover: submission.cover ?? ' ',
-      coverSize: submission.coverSize? submission.coverSize.concat(' m²') : 'N/A',
+      coverSize: submission.coverSize ? submission.coverSize.concat(' m²') : 'N/A',
       itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
       coverType: submission.coverType || 'Not needed',
       storageType: submission.storageType,
