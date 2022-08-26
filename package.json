@@ -18,6 +18,7 @@
     "@hapi/catbox-redis": "^6.0.2",
     "@hapi/hapi": "^20.0.3",
     "applicationinsights": "^1.8.10",
+    "dotenv": "^16.0.1",
     "ffc-messaging": "^2.3.3",
     "ffc-protective-monitoring": "^1.0.1",
     "joi": "^17.4.0"
