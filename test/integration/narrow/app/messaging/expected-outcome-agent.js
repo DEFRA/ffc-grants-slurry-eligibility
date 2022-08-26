@@ -1,3 +1,5 @@
+const envStr = process.env.EXCEL_UPLOAD_ENVIRONMENT
+
 const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
   applicantEmail: {
     notifyTemplate: 'd85eec72-eff9-4b9e-ba09-c6b769ce9b13',
@@ -94,7 +96,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
   rpaEmail: null,
   spreadsheet: {
     filename: 'FTF-Slurry Infrastructure_Test Project_Test Business_12345678_18-09-2022, 01:00.xlsx',
-    uploadLocation: 'Farming Investment Fund/Farming Transformation Fund/DEV/Slurry Infrastructure/',
+    uploadLocation: `Farming Investment Fund/Farming Transformation Fund/${envStr}/Slurry Infrastructure/`,
     worksheets: [
       {
         title: 'DORA DATA',

@@ -1,5 +1,7 @@
 const { microEmployeesNum, microTurnover, smallEmployeesNum, smallTurnover, mediumEmployeesNum, mediumTurnover } = require('../../../../../app/messaging/business-size-constants')
 
+const envStr = process.env.EXCEL_UPLOAD_ENVIRONMENT
+
 const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large') => {
   return ({
     applicantEmail: {
@@ -52,7 +54,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
     rpaEmail: null,
     spreadsheet: {
       filename: 'FTF-Slurry Infrastructure_Test Project_Test Business_12345678_18-09-2022, 01:00.xlsx',
-      uploadLocation: 'Farming Investment Fund/Farming Transformation Fund/DEV/Slurry Infrastructure/',
+      uploadLocation: `Farming Investment Fund/Farming Transformation Fund/${envStr}/Slurry Infrastructure/`,
       worksheets: [
         {
           title: 'DORA DATA',
