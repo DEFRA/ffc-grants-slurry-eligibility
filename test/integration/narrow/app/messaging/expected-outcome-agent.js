@@ -2,7 +2,7 @@ const envStr = process.env.EXCEL_UPLOAD_ENVIRONMENT
 
 const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
   applicantEmail: {
-    notifyTemplate: 'd85eec72-eff9-4b9e-ba09-c6b769ce9b13',
+    notifyTemplate: process.env.NOTIFY_EMAIL_TEMPLATE,
     emailAddress: 'farmer@site.com',
     details: {
       firstName: 'Fred',
@@ -48,7 +48,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
     }
   },
   agentEmail: {
-    notifyTemplate: 'd85eec72-eff9-4b9e-ba09-c6b769ce9b13',
+    notifyTemplate: process.env.NOTIFY_EMAIL_TEMPLATE,
     emailAddress: 'agent@site.com',
     details: {
       firstName: 'Adam',
