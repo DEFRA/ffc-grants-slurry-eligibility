@@ -1,4 +1,8 @@
 describe('Desirability score', () => {
+  beforeEach(() => {
+    jest.resetAllMocks()
+  })
+
   const desirability = require('../../../../../app/messaging/create-desirability-msg')
 
   test('should retrieve a desirability score', async () => {

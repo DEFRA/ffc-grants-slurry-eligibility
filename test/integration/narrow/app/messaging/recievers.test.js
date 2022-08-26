@@ -1,13 +1,15 @@
 describe('Reciever', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   test('Elligibility', async () => {
-    const Messaging = jest.mock('ffc-messaging')
-    const messageReceiverMock = (cfg, action) => {
-      action()
-      return {
-        subscribe: jest.fn()
-      }
-    }
-    Messaging.MessageReceiver = messageReceiverMock
+    const { MessageReceiver } = require('ffc-messaging')
+
+    jest.mock('ffc-messaging')
+
+    const mocksubscribe = jest.fn()
+    MessageReceiver.prototype.subscribe = mocksubscribe
 
     const eligibilityAnswersReceivedMock = jest.fn((msg, reciever) => { })
 
@@ -15,19 +17,16 @@ describe('Reciever', () => {
 
     startEligibilityAnswersReceiver(eligibilityAnswersReceivedMock)
 
-    expect(eligibilityAnswersReceivedMock).toHaveBeenCalled()
-    expect(messageReceiverMock.subscribe).toHaveBeenCalled()
+    expect(mocksubscribe).toHaveBeenCalled()
   })
 
   test('Contact details', async () => {
-    const Messaging = jest.mock('ffc-messaging')
-    const messageReceiverMock = (cfg, action) => {
-      action()
-      return {
-        subscribe: jest.fn()
-      }
-    }
-    Messaging.MessageReceiver = messageReceiverMock
+    const { MessageReceiver } = require('ffc-messaging')
+
+    jest.mock('ffc-messaging')
+
+    const mocksubscribe = jest.fn()
+    MessageReceiver.prototype.subscribe = mocksubscribe
 
     const contactDetailsReceivedMock = jest.fn((msg, reciever) => { })
 
@@ -35,7 +34,6 @@ describe('Reciever', () => {
 
     startContactDetailsReceiver(contactDetailsReceivedMock)
 
-    expect(contactDetailsReceivedMock).toHaveBeenCalled()
-    expect(messageReceiverMock.subscribe).toHaveBeenCalled()
+    expect(mocksubscribe).toHaveBeenCalled()
   })
 })

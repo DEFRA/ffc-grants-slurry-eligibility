@@ -10,6 +10,10 @@ describe('Create submission messages', () => {
     jest.setSystemTime(testTimeConstant)
   })
 
+  beforeEach(() => {
+    jest.resetAllMocks()
+  })
+
   afterAll(() => {
     jest.useRealTimers()
   })

@@ -16,7 +16,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
         existingStorageCapacity: 'Less than 6 months',
         plannedStorageCapacity: '6 months',
         cover: 'Yes',
-        coverSize: 'Solid roof or lid with a flat deck or conical shape made from inflexible material such as fibreglass panels or polyester sheets',
+        coverSize: 'Solid roof or lid with a flat deck or conical shape made from inflexible material such as fibreglass panels or polyester sheets m²',
         itemSizeQuantities: 'Earth-bank lagoon with internal liner: 100 m³\nFixed flexible cover: 100 m³\nCentrifugal chopper pump: 10 item(s)\nSlurry store wall mixers with store capacity up to 8,000 cubic metre: 10 item(s) item(s)',
         coverType: 'I already have an impermeable cover',
         storageType: 'Above- ground steel slurry store',
@@ -51,7 +51,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
     agentEmail: null,
     rpaEmail: null,
     spreadsheet: {
-      filename: 'FTF-Slurry Infrastructure Grants_Test Project_Test Business_12345678_18-09-2022, 01:00.xlsx',
+      filename: 'FTF-Slurry Infrastructure_Test Project_Test Business_12345678_18-09-2022, 01:00.xlsx',
       uploadLocation: 'Farming Investment Fund/Farming Transformation Fund/DEV/Slurry Infrastructure/',
       worksheets: [
         {
@@ -73,11 +73,11 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
               bold: false
             }, {
               row: 39,
-              values: ['', 'Sub scheme', 'FTF-Slurry Infrastructure Grants'],
+              values: ['', 'Sub scheme', 'FTF-Slurry Infrastructure'],
               bold: false
             }, {
               row: 43,
-              values: ['', 'Theme', 'Slurry Infrastructure'],
+              values: ['', 'Theme', 'Slurry Infrastructure Grants'],
               bold: false
             }, {
               row: 90,
@@ -276,11 +276,11 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
               bold: false
             }, {
               row: 93,
-              values: ['', 'RAG date reviewed ', todayStr],
+              values: ['', 'RAG date reviewed ', todayStr],
               bold: false
             }, {
               row: 54,
-              values: ['', 'Electronic OA received date ', todayStr],
+              values: ['', 'Electronic OA received date ', todayStr],
               bold: false
             }, {
               row: 370,

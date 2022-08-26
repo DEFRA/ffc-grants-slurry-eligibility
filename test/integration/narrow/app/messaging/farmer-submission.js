@@ -27,15 +27,15 @@ farmerSubmission.otherItems = [
 ]
 farmerSubmission.consentOptional = true
 
-const farmerSubmissionMicroTurnover = { ...farmerSubmission }
+const farmerSubmissionMicroTurnover = JSON.parse(JSON.stringify(farmerSubmission))
 farmerSubmissionMicroTurnover.businessDetails.businessTurnover = microTurnover - 1
 farmerSubmissionMicroTurnover.businessDetails.numberEmployees = microEmployeesNum - 1
 
-const farmerSubmissionSmallTurnover = { ...farmerSubmission }
+const farmerSubmissionSmallTurnover = JSON.parse(JSON.stringify(farmerSubmission))
 farmerSubmissionSmallTurnover.businessDetails.businessTurnover = smallTurnover - 1
 farmerSubmissionSmallTurnover.businessDetails.numberEmployees = smallEmployeesNum - 1
 
-const farmerSubmissionMediumTurnover = { ...farmerSubmission }
+const farmerSubmissionMediumTurnover = JSON.parse(JSON.stringify(farmerSubmission))
 farmerSubmissionMediumTurnover.businessDetails.businessTurnover = mediumTurnover - 1
 farmerSubmissionMediumTurnover.businessDetails.numberEmployees = mediumEmployeesNum - 1
 
