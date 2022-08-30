@@ -1,4 +1,7 @@
 const defaultExpiresIn = 3600 * 1000 // 1 hour
+
+require('dotenv').config()
+
 module.exports = {
   useRedis: process.env.NODE_ENV !== 'test',
   desirabilityScoresSegment: {

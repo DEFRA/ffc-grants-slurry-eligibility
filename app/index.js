@@ -1,8 +1,6 @@
 const server = require('./server')
 const receivers = require('./messaging/receivers')
-const processDesirabiltyAction = require('./messaging/process-desirability')
 const processSubmissionAction = require('./messaging/process-submission')
-const desirabilityScoreAction = require('./messaging/desirability-score')
 const cache = require('./cache')
 
 const init = async () => {
