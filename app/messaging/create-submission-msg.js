@@ -198,59 +198,108 @@ function displayObject (itemSizeQuantities, otherItems) {
   return projectItems
 }
 
-function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
+function getPersonsDetails (isAgentEmail, submission) {
   const email = isAgentEmail ? submission.agentsDetails.emailAddress : submission.farmerDetails.emailAddress
+  const firstName = isAgentEmail ? submission.agentsDetails.firstName : submission.farmerDetails.firstName
+  const lastName = isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName
+
+  return {
+    email,
+    firstName,
+    lastName
+  }
+}
+
+function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
+  const {
+    confirmationId,
+    applicantType,
+    legalStatus,
+    inEngland,
+    systemType,
+    existingStorageCapacity,
+    plannedStorageCapacity,
+    cover,
+    coverSize,
+    itemSizeQuantities,
+    otherItems,
+    coverType,
+    storageType,
+    PlanningPermissionEvidence,
+    planningPermission,
+    projectStart,
+    serviceCapacityIncrease,
+    tenancy,
+    tenancyLength,
+    itemsTotalValue,
+    calculatedGrant,
+    remainingCosts,
+    gridReference,
+    projectType,
+    applicantBusiness,
+    consentOptional,
+    agentsDetails,
+    farmerDetails: {
+      firstName: farmerName,
+      lastName: farmerSurname,
+      emailAddress: farmerEmail,
+      projectPostcode
+    },
+    businessDetails
+  } = submission
+
+  const {
+    email,
+    firstName,
+    lastName
+  } = getPersonsDetails(isAgentEmail, submission)
+
   return {
     notifyTemplate: emailConfig.notifyTemplate,
     emailAddress: rpaEmail || email,
     details: {
-      firstName: isAgentEmail ? submission.agentsDetails.firstName : submission.farmerDetails.firstName,
-      lastName: isAgentEmail ? submission.agentsDetails.lastName : submission.farmerDetails.lastName,
-      referenceNumber: submission.confirmationId,
-      legalStatus: submission.legalStatus,
-      applicantType: submission.applicantType ? [submission.applicantType].flat().join(', ') : ' ',
-      location: submission.inEngland,
-      systemType: submission.systemType,
-      existingStorageCapacity: submission.existingStorageCapacity,
-      plannedStorageCapacity: submission.plannedStorageCapacity,
-      cover: submission.cover ?? ' ',
-      coverSize: submission.coverSize ? submission.coverSize.concat(' m²') : 'N/A',
-      itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
-      coverType: submission.coverType || 'Not needed',
-      storageType: submission.storageType,
-      planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
-      planningReferenceNumber: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningReferenceNumber : ' ',
-      planningPermission: submission.planningPermission,
-      projectPostcode: submission.farmerDetails.projectPostcode,
-      projectStart: submission.projectStart,
-      serviceCapacityIncrease: submission.serviceCapacityIncrease,
-      tenancy: submission.tenancy,
-      isTenancyLength: submission.tenancyLength ? 'Yes' : 'No',
-      tenancyLength: submission.tenancyLength ?? ' ',
-      projectCost: getCurrencyFormat(submission.itemsTotalValue),
-      potentialFunding: getCurrencyFormat(submission.calculatedGrant),
-      remainingCost: submission.remainingCosts,
-      gridReference: submission.gridReference.toUpperCase(),
-      projectName: submission.businessDetails.projectName,
-      projectType: submission.projectType,
-      businessName: submission.businessDetails.businessName,
-      farmerName: submission.farmerDetails.firstName,
-      farmerSurname: submission.farmerDetails.lastName,
-      farmerEmail: submission.farmerDetails.emailAddress,
-      isAgent: submission.agentsDetails ? 'Yes' : 'No',
-      agentName: submission.agentsDetails?.firstName ?? ' ',
-      agentSurname: submission.agentsDetails?.lastName ?? ' ',
-      agentEmail: submission.agentsDetails?.emailAddress ?? ' ',
-      contactConsent: submission.consentOptional ? 'Yes' : 'No',
+      firstName,
+      lastName,
+      referenceNumber: confirmationId,
+      legalStatus,
+      applicantType: applicantType ? [applicantType].flat().join(', ') : ' ',
+      location: inEngland,
+      systemType,
+      existingStorageCapacity: existingStorageCapacity,
+      plannedStorageCapacity: plannedStorageCapacity,
+      cover: cover ?? ' ',
+      coverSize: coverSize ? coverSize.concat(' m²') : 'N/A',
+      itemSizeQuantities: itemSizeQuantities ? displayObject(itemSizeQuantities, [otherItems].flat()).join('\n') : 'None selected',
+      coverType: coverType || 'Not needed',
+      storageType,
+      planningAuthority: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
+      planningReferenceNumber: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningReferenceNumber : ' ',
+      planningPermission,
+      projectPostcode,
+      projectStart: projectStart,
+      serviceCapacityIncrease: serviceCapacityIncrease,
+      tenancy: tenancy,
+      isTenancyLength: tenancyLength ? 'Yes' : 'No',
+      tenancyLength: tenancyLength ?? ' ',
+      projectCost: getCurrencyFormat(itemsTotalValue),
+      potentialFunding: getCurrencyFormat(calculatedGrant),
+      remainingCost: remainingCosts,
+      gridReference: gridReference.toUpperCase(),
+      projectName: businessDetails.projectName,
+      projectType,
+      businessName: businessDetails.businessName,
+      farmerName,
+      farmerSurname,
+      farmerEmail,
+      isAgent: agentsDetails ? 'Yes' : 'No',
+      agentName: agentsDetails?.firstName ?? ' ',
+      agentSurname: agentsDetails?.lastName ?? ' ',
+      agentEmail: agentsDetails?.emailAddress ?? ' ',
+      contactConsent: consentOptional ? 'Yes' : 'No',
       scoreDate: new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }),
-      businessType: submission.applicantBusiness
+      businessType: applicantBusiness
     }
   }
-}
-
-function spreadsheet (submission) {
-  const data = getSpreadsheetDetails(submission)
-  return data
 }
 
 module.exports = function (submission) {
@@ -258,6 +307,6 @@ module.exports = function (submission) {
     applicantEmail: getEmailDetails(submission, false),
     agentEmail: submission.applying === 'Agent' ? getEmailDetails(submission, false, true) : null,
     rpaEmail: spreadsheetConfig.sendEmailToRpa ? getEmailDetails(submission, spreadsheetConfig.rpaEmail) : null,
-    spreadsheet: spreadsheet(submission)
+    spreadsheet: getSpreadsheetDetails(submission)
   }
 }
