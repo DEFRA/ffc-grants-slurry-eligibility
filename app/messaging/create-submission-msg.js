@@ -95,7 +95,7 @@ function getSpreadsheetDetails (submission) {
 
   return {
     filename: generateExcelFilename(
-      subScheme.trim(),
+      'FTF-SIG',
       submission.businessDetails.projectName.trim(),
       submission.businessDetails.businessName.trim(),
       submission.confirmationId.trim(),
@@ -135,7 +135,7 @@ function getSpreadsheetDetails (submission) {
           generateRow(345, 'Remaining Cost to Farmer', submission.remainingCost),
           generateRow(346, 'Planning Permission Status', getPlanningPermissionDoraValue(submission.planningPermission)),
           generateRow(400, 'Planning Authority', submission.PlanningPermissionEvidence?.planningAuthority.toUpperCase() ?? ''),
-          generateRow(401, 'Planning Reference No', submission.PlanningPermissionEvidence?.planningReferenceNumber ?? ''),
+          generateRow(401, 'Planning Reference No', submission.PlanningPermissionEvidence?.planningReferenceNumber.toUpperCase() ?? ''),
           generateRow(402, 'OS Grid Reference', submission.gridReference.toUpperCase()),
           generateRow(366, 'Date of OA decision', ''),
           generateRow(42, 'Project name', submission.businessDetails.projectName),
@@ -272,8 +272,8 @@ function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
       itemSizeQuantities: itemSizeQuantities ? displayObject(itemSizeQuantities, [otherItems].flat()).join('\n') : 'None selected',
       coverType: coverType || 'Not needed',
       storageType,
-      planningAuthority: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
-      planningReferenceNumber: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningReferenceNumber : ' ',
+      planningAuthority: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningAuthority.toUpperCase() : 'N/A',
+      planningReferenceNumber: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningReferenceNumber : 'N/a',
       planningPermission,
       projectPostcode,
       projectStart: projectStart,

@@ -19,8 +19,8 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
       itemSizeQuantities: 'None selected',
       coverType: 'Not needed',
       storageType: 'Above- ground steel slurry store',
-      planningAuthority: ' ',
-      planningReferenceNumber: ' ',
+      planningAuthority: 'N/A',
+      planningReferenceNumber: 'N/A',
       planningPermission: 'Yes',
       projectPostcode: 'TE12ST',
       projectStart: 'Yes, preparatory work',
@@ -65,8 +65,8 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
       itemSizeQuantities: 'None selected',
       coverType: 'Not needed',
       storageType: 'Above- ground steel slurry store',
-      planningAuthority: ' ',
-      planningReferenceNumber: ' ',
+      planningAuthority: 'N/A',
+      planningReferenceNumber: 'N/A',
       planningPermission: 'Yes',
       projectPostcode: 'TE12ST',
       projectStart: 'Yes, preparatory work',
@@ -95,7 +95,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
   },
   rpaEmail: null,
   spreadsheet: {
-    filename: 'FTF-Slurry Infrastructure_Test Project_Test Business_12345678_18-09-2022, 01:00.xlsx',
+    filename: 'FTF-SIG_Test Project_Test Business_12345678_18-09-2022, 01:00.xlsx',
     uploadLocation: `Farming Investment Fund/Farming Transformation Fund/${envStr}/Slurry Infrastructure/`,
     worksheets: [
       {
