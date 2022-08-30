@@ -95,7 +95,7 @@ function getSpreadsheetDetails (submission) {
 
   return {
     filename: generateExcelFilename(
-      subScheme.trim(),
+      'FTF-SIG',
       submission.businessDetails.projectName.trim(),
       submission.businessDetails.businessName.trim(),
       submission.confirmationId.trim(),
@@ -135,7 +135,7 @@ function getSpreadsheetDetails (submission) {
           generateRow(345, 'Remaining Cost to Farmer', submission.remainingCost),
           generateRow(346, 'Planning Permission Status', getPlanningPermissionDoraValue(submission.planningPermission)),
           generateRow(400, 'Planning Authority', submission.PlanningPermissionEvidence?.planningAuthority.toUpperCase() ?? ''),
-          generateRow(401, 'Planning Reference No', submission.PlanningPermissionEvidence?.planningReferenceNumber ?? ''),
+          generateRow(401, 'Planning Reference No', submission.PlanningPermissionEvidence?.planningReferenceNumber.toUpperCase() ?? ''),
           generateRow(402, 'OS Grid Reference', submission.gridReference.toUpperCase()),
           generateRow(366, 'Date of OA decision', ''),
           generateRow(42, 'Project name', submission.businessDetails.projectName),
@@ -218,8 +218,8 @@ function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
       itemSizeQuantities: submission.itemSizeQuantities ? displayObject(submission.itemSizeQuantities, [submission.otherItems].flat()).join('\n') : 'None selected',
       coverType: submission.coverType || 'Not needed',
       storageType: submission.storageType,
-      planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : ' ',
-      planningReferenceNumber: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningReferenceNumber : ' ',
+      planningAuthority: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningAuthority.toUpperCase() : 'N/A',
+      planningReferenceNumber: submission.PlanningPermissionEvidence ? submission.PlanningPermissionEvidence.planningReferenceNumber : 'N/A',
       planningPermission: submission.planningPermission,
       projectPostcode: submission.farmerDetails.projectPostcode,
       projectStart: submission.projectStart,
