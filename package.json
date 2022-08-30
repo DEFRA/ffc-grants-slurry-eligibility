@@ -1,6 +1,6 @@
 {
   "name": "ffc-grants-slurry-eligibility",
-  "version": "1.2.7",
+  "version": "1.2.9",
   "description": "FFC Grants slurry eligibility and desirability microservice",
   "homepage": "https://github.com/DEFRA/ffc-grants-slurry-eligibility",
   "main": "app/index.js",
