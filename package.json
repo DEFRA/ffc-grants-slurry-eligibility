@@ -5,7 +5,7 @@
   "homepage": "https://github.com/DEFRA/ffc-grants-slurry-eligibility",
   "main": "app/index.js",
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
     "start:watch": "nodemon --inspect=0.0.0.0:9239 --ext js --legacy-watch app/index.js"
   },
