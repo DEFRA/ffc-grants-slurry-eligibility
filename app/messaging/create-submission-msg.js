@@ -129,7 +129,7 @@ function getSpreadsheetDetails (submission) {
           generateRow(397, 'Planned Storage Capacity', submission.plannedStorageCapacity),
           generateRow(398, 'Slurry Storage Improvement Method', submission.projectType),
           generateRow(399, 'Impermeable cover', submission.cover),
-          generateRow(55, 'Total project expenditure', String(submission.itemsTotalValue * 2).replace(/,/g, '')),
+          generateRow(55, 'Total project expenditure', Number(submission.itemsTotalValue * 2)),
           generateRow(57, 'Grant rate', '50'),
           generateRow(56, 'Grant amount requested', submission.calculatedGrant),
           generateRow(345, 'Remaining Cost to Farmer', submission.remainingCost),

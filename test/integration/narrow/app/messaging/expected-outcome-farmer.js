@@ -31,7 +31,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
         tenancy: 'Yes',
         isTenancyLength: 'Yes',
         tenancyLength: 'Yes',
-        projectCost: '£NaN',
+        projectCost: "£800",
         potentialFunding: '£NaN',
         gridReference: 'A1',
         projectName: 'Test Project',
@@ -147,7 +147,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
               bold: false
             }, {
               row: 55,
-              values: ['', 'Total project expenditure', 'undefined'],
+              values: ['', 'Total project expenditure', 1600],
               bold: false
             }, {
               row: 57,

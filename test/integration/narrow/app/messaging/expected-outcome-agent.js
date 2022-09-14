@@ -28,7 +28,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
       tenancy: 'Yes',
       isTenancyLength: 'No',
       tenancyLength: ' ',
-      projectCost: '£NaN',
+      projectCost: "£800",
       potentialFunding: '£NaN',
       gridReference: 'A1',
       projectName: 'Test Project',
@@ -74,7 +74,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
       tenancy: 'Yes',
       isTenancyLength: 'No',
       tenancyLength: ' ',
-      projectCost: '£NaN',
+      projectCost: "£800",
       potentialFunding: '£NaN',
       gridReference: 'A1',
       projectName: 'Test Project',
@@ -189,7 +189,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
             bold: false
           }, {
             row: 55,
-            values: ['', 'Total project expenditure', 'undefined'],
+            values: ['', 'Total project expenditure', 1600],
             bold: false
           }, {
             row: 57,

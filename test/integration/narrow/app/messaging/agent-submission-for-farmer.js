@@ -26,6 +26,7 @@ const agentSubmissionForFarmer = {
   serviceCapacityIncrease: '',
   tenancy: 'Yes',
   isTenancyLength: 'Yes',
+  itemsTotalValue: 800,
   remainingCost: 'Yes',
   businessDetails: {
     projectName: 'Test Project',
