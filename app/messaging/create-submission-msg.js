@@ -87,7 +87,7 @@ function getProjectItemsFormattedArray (itemSizeQuantities, otherItems, storageT
   return projectItems.join('|')
 }
 
-function getSpreadsheetDetails (submission) {
+function getSpreadsheetDetails(submission) {
   const today = new Date()
   const todayStr = today.toLocaleDateString('en-GB')
   const schemeName = 'Slurry Infrastructure'
