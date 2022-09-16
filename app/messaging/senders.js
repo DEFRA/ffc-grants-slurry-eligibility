@@ -32,13 +32,6 @@ async function sendMsg (sender, msgData, msgType, correlationId) {
 }
 
 module.exports = {
-  sendCalculateScore: async function (calculateScoreData, correlationId) {
-    await sendMsg(
-      calculateScoreData,
-      msgCfg.calculateScoreMsgType,
-      correlationId
-    )
-  },
   sendDesirabilitySubmitted: async function (desirabilitySubmittedData, correlationId) {
     await sendMsg(
       desirabilitySubmittedSender,

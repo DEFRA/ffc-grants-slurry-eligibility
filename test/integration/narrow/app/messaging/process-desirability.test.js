@@ -10,11 +10,6 @@ describe('Process desirability', () => {
     jest.mock('../../../../../app/cache')
     cacheMock.removeDesirabilityScore.mockResolvedValue(true)
 
-    const scoreMock = require('../../../../../app/messaging/senders')
-    jest.mock('../../../../../app/messaging/senders')
-
-    scoreMock.sendCalculateScore.mockResolvedValue(true)
-
     const msg = {
       body: {
         desirabilityAnswers: 'lorem ipsum'
