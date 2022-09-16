@@ -39,9 +39,17 @@ const farmerSubmissionMediumTurnover = JSON.parse(JSON.stringify(farmerSubmissio
 farmerSubmissionMediumTurnover.businessDetails.businessTurnover = mediumTurnover - 1
 farmerSubmissionMediumTurnover.businessDetails.numberEmployees = mediumEmployeesNum - 1
 
+const farmerSubmissionPlanningAppliedFor = JSON.parse(JSON.stringify(farmerSubmission))
+farmerSubmissionPlanningAppliedFor.planningPermission = 'Applied for but not yet approved'
+
+const farmerSubmissionPlanningNotYetAppliedFor = JSON.parse(JSON.stringify(farmerSubmission))
+farmerSubmissionPlanningNotYetAppliedFor.planningPermission = 'Not yet applied for but expected to be in place by 31 December 2023'
+
 module.exports = {
   farmerSubmission,
   farmerSubmissionMicroTurnover,
   farmerSubmissionMediumTurnover,
-  farmerSubmissionSmallTurnover
+  farmerSubmissionSmallTurnover,
+  farmerSubmissionPlanningAppliedFor,
+  farmerSubmissionPlanningNotYetAppliedFor
 }

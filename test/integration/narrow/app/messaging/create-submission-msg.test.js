@@ -56,6 +56,24 @@ describe('Create submission messages', () => {
     expect(agentSubmissionForFarmerApplicationResult).toEqual(expectedOutcomeFarmerMedium(testTimeConstant, sixMonthsLater, todayStr))
   })
 
+  test('As a farmer with "applied for" planning permission', async () => {
+    const { farmerSubmissionPlanningAppliedFor } = require('./farmer-submission')
+    const { expectedOutcomeFarmerPlanningAppliedFor } = require('./expected-outcome-farmer')
+
+    const farmerApplicationResult = createSubmissionMsg(farmerSubmissionPlanningAppliedFor)
+
+    expect(farmerApplicationResult).toEqual(expectedOutcomeFarmerPlanningAppliedFor(testTimeConstant, sixMonthsLater, todayStr))
+  })
+
+  test('As a farmer with "not yet applied for" planning permission', async () => {
+    const { farmerSubmissionPlanningNotYetAppliedFor } = require('./farmer-submission')
+    const { expectedOutcomeFarmerPlanningToApply } = require('./expected-outcome-farmer')
+
+    const farmerApplicationResult = createSubmissionMsg(farmerSubmissionPlanningNotYetAppliedFor)
+
+    expect(farmerApplicationResult).toEqual(expectedOutcomeFarmerPlanningToApply(testTimeConstant, sixMonthsLater, todayStr))
+  })
+
   test('As an agent on a farmers behalf', async () => {
     const agentSubmissionForFarmer = require('./agent-submission-for-farmer')
     const expectedOutcomeAgent = require('./expected-outcome-agent')

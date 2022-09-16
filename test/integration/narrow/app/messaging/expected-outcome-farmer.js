@@ -2,7 +2,7 @@ const { microEmployeesNum, microTurnover, smallEmployeesNum, smallTurnover, medi
 
 const envStr = process.env.EXCEL_UPLOAD_ENVIRONMENT
 
-const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large') => {
+const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, { numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large', planningPermissionStatus = 'Approved', planningPermission = 'Yes' } = {}) => {
   return ({
     applicantEmail: {
       notifyTemplate: process.env.NOTIFY_EMAIL_TEMPLATE,
@@ -24,7 +24,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
         storageType: 'Above- ground steel slurry store',
         planningAuthority: 'TEST',
         planningReferenceNumber: 'TE01',
-        planningPermission: 'Yes',
+        planningPermission,
         projectPostcode: 'TE12ST',
         projectStart: 'Yes, preparatory work',
         serviceCapacityIncrease: '',
@@ -164,7 +164,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
               bold: false
             }, {
               row: 346,
-              values: ['', 'Planning Permission Status', 'Approved'],
+              values: ['', 'Planning Permission Status', planningPermissionStatus],
               bold: false
             }, {
               row: 400,
@@ -355,15 +355,31 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, numbe
   })
 }
 
-const expectedOutcomeFarmerMicro = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, microEmployeesNum - 1, microTurnover - 1, 'Micro')
+const expectedOutcomeFarmerMicro = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
+  numberEmployees: microEmployeesNum - 1, businessTurnover: microTurnover - 1, businessSize: 'Micro'
+})
 
-const expectedOutcomeFarmerSmall = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, smallEmployeesNum - 1, smallTurnover - 1, 'Small')
+const expectedOutcomeFarmerSmall = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
+  numberEmployees: smallEmployeesNum - 1, businessTurnover: smallTurnover - 1, businessSize: 'Small'
+})
 
-const expectedOutcomeFarmerMedium = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, mediumEmployeesNum - 1, mediumTurnover - 1, 'Medium')
+const expectedOutcomeFarmerMedium = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
+  numberEmployees: mediumEmployeesNum - 1, businessTurnover: mediumTurnover - 1, businessSize: 'Medium'
+})
+
+const expectedOutcomeFarmerPlanningAppliedFor = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
+  planningPermissionStatus: 'Applied for', planningPermission: 'Applied for but not yet approved'
+})
+
+const expectedOutcomeFarmerPlanningToApply = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
+  planningPermissionStatus: 'Not yet applied for', planningPermission: 'Not yet applied for but expected to be in place by 31 December 2023'
+})
 
 module.exports = {
   expectedOutcomeFarmer,
   expectedOutcomeFarmerMicro,
   expectedOutcomeFarmerSmall,
-  expectedOutcomeFarmerMedium
+  expectedOutcomeFarmerMedium,
+  expectedOutcomeFarmerPlanningAppliedFor,
+  expectedOutcomeFarmerPlanningToApply
 }
