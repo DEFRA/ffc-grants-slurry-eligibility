@@ -7,7 +7,7 @@ module.exports = async function (msg) {
 
     // Remove any previous cache entries with the given correlationId
     // For simplicity we will recalculate every time
-    await cache.removeDesirabilityScore(correlationId)
+    cache.removeDesirabilityScore(correlationId)
 
     const desirabilityMsg = createMsg(desirabilityAnswers)
     console.log('desirabilityMsg', JSON.stringify(desirabilityMsg, null, 2))
