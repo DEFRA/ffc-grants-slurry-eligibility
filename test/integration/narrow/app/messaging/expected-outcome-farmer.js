@@ -60,6 +60,7 @@ const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, { num
           title: 'DORA DATA',
           hideEmptyRows: false,
           defaultColumnWidth: 30,
+          protectPassword: "12345678",
           rows: [
             {
               row: 1,

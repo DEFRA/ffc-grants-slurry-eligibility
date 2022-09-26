@@ -102,6 +102,7 @@ const expectedOutcomeAgent = (testTimeConstant, sixMonthsLater, todayStr) => ({
         title: 'DORA DATA',
         hideEmptyRows: false,
         defaultColumnWidth: 30,
+        protectPassword: "12345678",
         rows: [
           {
             row: 1,
