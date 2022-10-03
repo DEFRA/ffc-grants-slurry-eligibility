@@ -273,7 +273,7 @@ function getEmailDetails (submission, rpaEmail, isAgentEmail = false) {
       coverType: coverType || 'Not needed',
       storageType,
       planningAuthority: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningAuthority.toUpperCase() : 'N/A',
-      planningReferenceNumber: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningReferenceNumber : 'N/a',
+      planningReferenceNumber: PlanningPermissionEvidence ? PlanningPermissionEvidence.planningReferenceNumber : 'N/A',
       planningPermission,
       projectPostcode,
       projectStart: projectStart,
