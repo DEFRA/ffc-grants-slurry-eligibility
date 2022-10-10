@@ -43,7 +43,7 @@ const farmerSubmissionPlanningAppliedFor = JSON.parse(JSON.stringify(farmerSubmi
 farmerSubmissionPlanningAppliedFor.planningPermission = 'Applied for but not yet approved'
 
 const farmerSubmissionPlanningNotYetAppliedFor = JSON.parse(JSON.stringify(farmerSubmission))
-farmerSubmissionPlanningNotYetAppliedFor.planningPermission = 'Not yet applied for but expected to be in place by 31 December 2023'
+farmerSubmissionPlanningNotYetAppliedFor.planningPermission = 'Not yet applied for but expected to be secured by 31 December 2023'
 
 module.exports = {
   farmerSubmission,

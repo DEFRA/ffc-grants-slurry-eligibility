@@ -372,7 +372,7 @@ const expectedOutcomeFarmerPlanningAppliedFor = (testTimeConstant, sixMonthsLate
 })
 
 const expectedOutcomeFarmerPlanningToApply = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
-  planningPermissionStatus: 'Not yet applied for', planningPermission: 'Not yet applied for but expected to be in place by 31 December 2023'
+  planningPermissionStatus: 'Not yet applied for', planningPermission: 'Not yet applied for but expected to be secured by 31 December 2023'
 })
 
 module.exports = {
