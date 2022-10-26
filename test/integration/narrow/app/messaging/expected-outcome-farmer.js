@@ -2,7 +2,7 @@ const { microEmployeesNum, microTurnover, smallEmployeesNum, smallTurnover, medi
 
 const envStr = process.env.EXCEL_UPLOAD_ENVIRONMENT
 
-const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, { numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large', planningPermissionStatus = 'Approved', planningPermission = 'Yes' } = {}) => {
+const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, { numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large', planningPermissionStatus = 'Approved', planningPermission = 'Approved' } = {}) => {
   return ({
     applicantEmail: {
       notifyTemplate: process.env.NOTIFY_EMAIL_TEMPLATE,
