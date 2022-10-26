@@ -21,7 +21,7 @@ const agentSubmissionForFarmer = {
   existingStorageCapacity: 'Less than 6 months',
   plannedStorageCapacity: '6 months',
   storageType: 'Above- ground steel slurry store',
-  planningPermission: 'Yes',
+  planningPermission: 'Approved',
   projectStart: 'Yes, preparatory work',
   serviceCapacityIncrease: '',
   tenancy: 'Yes',
