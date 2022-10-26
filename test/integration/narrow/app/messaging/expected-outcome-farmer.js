@@ -2,7 +2,7 @@ const { microEmployeesNum, microTurnover, smallEmployeesNum, smallTurnover, medi
 
 const envStr = process.env.EXCEL_UPLOAD_ENVIRONMENT
 
-const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, { numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large', planningPermissionStatus = 'Approved', planningPermission = 'Yes' } = {}) => {
+const expectedOutcomeFarmer = (testTimeConstant, sixMonthsLater, todayStr, { numberEmployees = undefined, businessTurnover = undefined, businessSize = 'Large', planningPermissionStatus = 'Approved', planningPermission = 'Approved' } = {}) => {
   return ({
     applicantEmail: {
       notifyTemplate: process.env.NOTIFY_EMAIL_TEMPLATE,
@@ -372,7 +372,7 @@ const expectedOutcomeFarmerPlanningAppliedFor = (testTimeConstant, sixMonthsLate
 })
 
 const expectedOutcomeFarmerPlanningToApply = (testTimeConstant, sixMonthsLater, todayStr) => expectedOutcomeFarmer(testTimeConstant, sixMonthsLater, todayStr, {
-  planningPermissionStatus: 'Not yet applied for', planningPermission: 'Not yet applied for but expected to be secured by 31 December 2023'
+  planningPermissionStatus: 'Not yet applied for', planningPermission: 'Not yet applied for but expected to be secured by 28 June 2024'
 })
 
 module.exports = {
