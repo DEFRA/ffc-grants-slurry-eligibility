@@ -20,7 +20,7 @@
     "applicationinsights": "^1.8.10",
     "dotenv": "^16.0.1",
     "ffc-messaging": "^2.3.3",
-    "ffc-protective-monitoring": "^1.0.1",
+    "ffc-protective-monitoring": "^1.0.4",
     "joi": "^17.4.0"
   },
   "devDependencies": {
